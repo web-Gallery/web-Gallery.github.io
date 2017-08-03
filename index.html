@@ -1,0 +1,2544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,height=device-height,initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>Art Gallery</title>
+</head>
+
+<link rel="stylesheet" href="css/leaflet.css"/>
+<link rel="stylesheet" href="css/myCss.css"/>
+<link rel="stylesheet" href="css/bootstrap.css"/>
+<link rel="stylesheet" href="css/jquery-ui.css" type="text/css">
+<link rel="stylesheet" href="css/MarkerCluster.css"/>
+<link rel="stylesheet" href="css/MarkerCluster.Default.css"/>
+<link rel="stylesheet" href="css/L.control.window.css"/>
+<link rel="stylesheet" href="css/siderbar.css"/>
+<link rel="stylesheet" href="css/leaflet.fusesearch.css"/>
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/leaflet.js"></script>
+<script src="js/d3.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/leaflet-src.js"></script>
+<script src="js/Slider_new.js"></script>
+<script src="js/leaflet.markercluster-src.js"></script>
+<script src="js/L.control.window.js"></script>
+<script src="js/siderbar.js"></script>
+<script src="js/leaflet-custom.js"></script>
+<script src="js/fuse.js"></script>
+<script src="js/alert.js"></script>
+
+<body>
+<!-- Sideabr settings -->
+<div id="sidebar" class="sidebar collapsed">
+    <div class="sidebar-tabs">
+
+        <!-- Sideabr tab list settings -->
+        <ul role="tablist">
+            <li id="searchLi" onclick="searchClick()"><a href="#authorSearch" role="tab">
+                <img id="searchGlass" src="css/images/search.png" style="height: 25px;width:25px"></a>
+            </li>
+            <li title="Neoclassicism"><a href="#neoAuthorList" role="tab" onclick="neoClick('Neoclassicism')">
+                <img id="neoImgC" src="css/images/neoX.png" style="height: 38px;width:38px"></a>
+            </li>
+            <li title="Romanticism"><a href="#romAuthorList" role="tab" id="romclick" onclick="romClick('Romanticism')">
+                <img id="romImgC" src="css/images/romX.png" style="height: 38px;width:38px"></a>
+            </li>
+            <li title="Realism"><a href="#realAuthorList" role="tab" id="realclick" onclick="realClick('Realism')">
+                <img id="realImgC" src="css/images/realX.png" style="height: 38px;width:38px"></a>
+            </li>
+            <li title="Impressionism"><a href="#impAuthorList" role="tab" id="impclick"
+                                         onclick="impClick('Impressionism')">
+                <img id="impImgC" src="css/images/impX.png" style="height: 38px;width:38px"></a>
+            </li>
+        </ul>
+
+    </div>
+
+    <!-- Sideabr tab panel initialization  -->
+    <div class="sidebar-content" style="color: #0f0f0f; max-width: 300px;overflow-y: hidden">
+
+        <!-- the panel of Author Search -->
+        <div class="sidebar-pane" id="authorSearch">
+            <h1 class="sidebar-header" style="padding-top: 16px">
+                <span class="sidebar-close" style="padding-top: 16px;padding-left: 5px;">
+                    <span class="glyphicon glyphicon-remove"></span></span>Author Search
+            </h1>
+            <div style="margin-top: 20px;padding-left: 20px;">
+                <form class="form-inline">
+                    <div class="input-group" style="padding-bottom: 10px;width: 210px;">
+                        <input type="text" class="form-control" id="authorName" placeholder="Author Name">
+                    </div>
+                </form>
+            </div>
+            <div id="searchResult" style="padding-left: 20px;height:600px;overflow-y: scroll"></div>
+        </div>
+
+        <!-- the panel of Neoclassicism -->
+        <div class="sidebar-pane" id="neoAuthorList">
+            <h1 class="sidebar-header"><span class="sidebar-close" style="padding-top: 16px;padding-left: 5px;">
+                <span class="glyphicon glyphicon-remove"></span></span><img src="css/images/neopp.jpg"
+                                                                            style="height: 70px;width:170px">
+            </h1>
+            <div class="tabbable tabs-left" style="height:600px;overflow-y: scroll;">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#nA" data-toggle="tab">A</a></li>
+                    <li><a href="#nB" data-toggle="tab">B</a></li>
+                    <li><a href="#nC" data-toggle="tab">C</a></li>
+                    <li><a href="#nD" data-toggle="tab">D</a></li>
+                    <li><a href="#nE" data-toggle="tab">E</a></li>
+                    <li><a href="#nF" data-toggle="tab">F</a></li>
+                    <li><a href="#nG" data-toggle="tab">G</a></li>
+                    <li><a href="#nH" data-toggle="tab">H</a></li>
+                    <li><a href="#nI" data-toggle="tab">I</a></li>
+                    <li><a href="#nK" data-toggle="tab">K</a></li>
+                    <li><a href="#nL" data-toggle="tab">L</a></li>
+                    <li><a href="#nM" data-toggle="tab">M</a></li>
+                    <li><a href="#nN" data-toggle="tab">N</a></li>
+                    <li><a href="#nO" data-toggle="tab">O</a></li>
+                    <li><a href="#nP" data-toggle="tab">P</a></li>
+                    <li><a href="#nR" data-toggle="tab">R</a></li>
+                    <li><a href="#nS" data-toggle="tab">S</a></li>
+                    <li><a href="#nT" data-toggle="tab">T</a></li>
+                    <li><a href="#nU" data-toggle="tab">U</a></li>
+                    <li><a href="#nV" data-toggle="tab">V</a></li>
+                    <li><a href="#nZ" data-toggle="tab">Z</a></li>
+                </ul>
+                <div id="neoList" class="tab-content">
+                    <div class="tab-pane fade in active" id="nA">
+                        <ul class="authorUl">
+                            <li>Ademollo, Luigi</li>
+                            <li>Appiani, Andrea</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nB">
+                        <ul class="authorUl">
+                            <li>Banks, Thomas</li>
+                            <li>Beaufort, Jacques-antoine</li>
+                            <li>Bellang, Hippolyte</li>
+                            <li>Benvenuti, Pietro</li>
+                            <li>Bergeret, Pierre-nolasque</li>
+                            <li>Bidauld, Jean-joseph-xavier</li>
+                            <li>Borsato, Giuseppe</li>
+                            <li>Brown, Mather</li>
+                            <li>Bury, Friedrich</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nC">
+                        <ul class="authorUl">
+                            <li>Camuccini, Vincenzo</li>
+                            <li>Canal, Giambattista</li>
+                            <li>Capet, Marie-gabrielle</li>
+                            <li>Castagnoli, Giuseppe</li>
+                            <li>Conca, Tommaso</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nD">
+                        <ul class="authorUl">
+                            <li>David, Jacques-louis</li>
+                            <li>Donckt, Franois Van Der</li>
+                            <li>Drouais, Jean-germain</li>
+                            <li>Dubois-drahonet, Alexandre-jean</li>
+                            <li>Dubufe, Claude-marie</li>
+                            <li>Ducq, Joseph-franois</li>
+                            <li>Duvivier, Jan Bernard</li>
+
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nE">
+                        <ul class="authorUl">
+                            <li>Eckersberg, Christoffer Wilhelm</li>
+                            <li>Edlinger, Johann Georg</li>
+                            <li>Esquivel, Y Surez De Urbina Antonio Maria</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nF">
+                        <ul class="authorUl">
+                            <li>Fabbrini, Giuseppe Antonio</li>
+                            <li>Fabre, Franois-xavier</li>
+                            <li>Fischer, Josef Vinzenz</li>
+                            <li>Fragonard, Alexandre-variste</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nG">
+                        <ul class="authorUl">
+                            <li>Gandolfi, Ubaldo</li>
+                            <li>Gherardini, Tommaso</li>
+                            <li>Giani, Felice</li>
+                            <li>Girodet, De Roucy-trioson Anne-louis</li>
+                            <li>Granet, Franois-marius</li>
+                            <li>Gregorius, Albert</li>
+                            <li>Gros, Antoine-jean</li>
+                            <li>Gurin, Pierre-narcisse</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nH">
+                        <ul class="authorUl">
+                            <li>Hackert, Georg Abraham</li>
+                            <li>Hamilton, Gavin</li>
+                            <li>Hamilton, Hugh Douglas</li>
+                            <li>Harlow, George Henry</li>
+                            <li>Haudebourt-lescot, Hortense</li>
+                            <li>Haydon, Benjamin Robert</li>
+                            <li>Heim, Franois-joseph</li>
+                            <li>Hetsch, Philipp Friedrich Von</li>
+                            <li>Hoare, Prince</li>
+                            <li>Hoechle, Johann Nepomuk</li>
+                            <li>Hoppner, John</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nI">
+                        <ul class="authorUl">
+                            <li>Ingres, Jean-auguste-dominique</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nK">
+                        <ul class="authorUl">
+                            <li>Knoller, Martin</li>
+                            <li>Kolbe, Carl Wilhelm</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nL">
+                        <ul class="authorUl">
+                            <li>Lampi, Johann Baptist Ii</li>
+                            <li>Landi, Gaspare</li>
+                            <li>Laneuville, Jean-louis</li>
+                            <li>Langlois, Jrme-martin</li>
+                            <li>Lawrence, Sir Thomas</li>
+                            <li>Le, Lorrain Louis-joseph</li>
+                            <li>Lefvre, Robert</li>
+                            <li>Lemonnier, Anicet-charles-gabriel</li>
+                            <li>Lethire, Guillaume</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nM">
+                        <ul class="authorUl">
+                            <li>Machy, Pierre-antoine De</li>
+                            <li>Maella, Mariano Salvador De</li>
+                            <li>Maurer, Hubert</li>
+                            <li>Menjaud, Alexandre</li>
+                            <li>Michallon, Achille-etna</li>
+                            <li>Morlaiter, Michelangelo</li>
+                            <li>Moro, Giuseppe Del</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nN">
+                        <ul class="authorUl">
+                            <li>Navez, Franois-joseph</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nO">
+                        <ul class="authorUl">
+                            <li>Odevaere, Joseph-denis</li>
+                            <li>Ollivier, Michel-barthlmy</li>
+                            <li>Orsi, Tranquillo</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nP">
+                        <ul class="authorUl">
+                            <li>Paelinck, Joseph</li>
+                            <li>Palagi, Pelagio</li>
+                            <li>Peyron, Jean-franois-pierre</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nR">
+                        <ul class="authorUl">
+                            <li>Raffet, Auguste</li>
+                            <li>Redout, Pierre-joseph</li>
+                            <li>Regnault, Jean-baptiste</li>
+                            <li>Riesener, Henri-franois</li>
+                            <li>Robert, Lopold</li>
+                            <li>Roland, De La Porte Henri-horace</li>
+                            <li>Rossi, Mariano</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nS">
+                        <ul class="authorUl">
+                            <li>Sabatelli, Luigi</li>
+                            <li>Sablet, Jacques Henri</li>
+                            <li>Schick, Christian Gottlieb</li>
+                            <li>Shchedrin, Semyon Fyodorovich</li>
+                            <li>Suve, Joseph-benoit</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nT">
+                        <ul class="authorUl">
+                            <li>Terreni, Giuseppe Maria</li>
+                            <li>Tischbein, Johann Friedrich August</li>
+                            <li>Tischbein, Johann Heinrich Wilhelm</li>
+                            <li>Traballesi, Giuliano</li>
+                            <li>Trumbull, John</li>
+                            <li>Turpin, De Criss Lancelot-thodore</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nU">
+                        <ul class="authorUl">
+                            <li>Ubaldo Gandolfi</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nV">
+                        <ul class="authorUl">
+                            <li>Valenciennes, Pierre-henri De</li>
+                            <li>Vernet, Carle</li>
+                            <li>Vien, Joseph-marie</li>
+                            <li>Vincent, Franois-andr</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="nZ">
+                        <ul class="authorUl">
+                            <li>Zaryanko, Sergey Konstantinovich</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- the panel of Impressionism -->
+        <div class="sidebar-pane" id="impAuthorList">
+            <h1 class="sidebar-header"><span class="sidebar-close" style="padding-top: 16px;padding-left: 5px;">
+                <span class="glyphicon glyphicon-remove"></span></span><img src="css/images/impp.jpg"
+                                                                            style="height: 70px;width:170px">
+            </h1>
+            <div class="tabbable tabs-left" style="height:600px;overflow-y: scroll;">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#iA" data-toggle="tab">A</a></li>
+                    <li><a href="#iB" data-toggle="tab">B</a></li>
+                    <li><a href="#iC" data-toggle="tab">C</a></li>
+                    <li><a href="#iD" data-toggle="tab">D</a></li>
+                    <li><a href="#iE" data-toggle="tab">E</a></li>
+                    <li><a href="#iF" data-toggle="tab">F</a></li>
+                    <li><a href="#iG" data-toggle="tab">G</a></li>
+                    <li><a href="#iH" data-toggle="tab">H</a></li>
+                    <li><a href="#iI" data-toggle="tab">I</a></li>
+                    <li><a href="#iJ" data-toggle="tab">J</a></li>
+                    <li><a href="#iK" data-toggle="tab">K</a></li>
+                    <li><a href="#iL" data-toggle="tab">L</a></li>
+                    <li><a href="#iM" data-toggle="tab">M</a></li>
+                    <li><a href="#iN" data-toggle="tab">N</a></li>
+                    <li><a href="#iP" data-toggle="tab">P</a></li>
+                    <li><a href="#iR" data-toggle="tab">R</a></li>
+                    <li><a href="#iS" data-toggle="tab">S</a></li>
+                    <li><a href="#iT" data-toggle="tab">T</a></li>
+                    <li><a href="#iU" data-toggle="tab">U</a></li>
+                    <li><a href="#iV" data-toggle="tab">V</a></li>
+                    <li><a href="#iW" data-toggle="tab">W</a></li>
+                    <li><a href="#iZ" data-toggle="tab">Z</a></li>
+                </ul>
+                <div id="impList" class="tab-content" style="overflow-y: auto">
+                    <div class="tab-pane fade in active" id="iA">
+                        <ul class="authorUl">
+                            <li>Ancher, Anna Kirstine</li>
+                            <li>Andreescu, Ion</li>
+                            <li>Angrand, Charles</li>
+                            <li>Anquetin., Louis</li>
+                            <li>Ashton, Julian Rossi</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iB">
+                        <ul class="authorUl">
+                            <li>Baertsoen, Albert</li>
+                            <li>Baum, Paul</li>
+                            <li>Bazille, Jean-frdric</li>
+                            <li>Benson, Frank Weston</li>
+                            <li>Bernard, Mile</li>
+                            <li>Beruete, Aureliano</li>
+                            <li>Birger, Hugo</li>
+                            <li>Bliard, Edouard</li>
+                            <li>Boldini, Giovanni</li>
+                            <li>Boudin, Eugne</li>
+                            <li>Bracquemond, Marie</li>
+                            <li>Braud, Jean</li>
+                            <li>Breck, John Leslie</li>
+                            <li>Breitner, George Hendrik</li>
+                            <li>Bruce, William Blair</li>
+                            <li>Bunker, Dennis Miller</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iC">
+                        <ul class="authorUl">
+                            <li>Caillebotte, Gustave</li>
+                            <li>Cals, Adolphe-flix</li>
+                            <li>Casas, I Carb Ramn</li>
+                            <li>Cassatt, Mary</li>
+                            <li>Chase, William Merritt</li>
+                            <li>Claus, Emile</li>
+                            <li>Clausen, George</li>
+                            <li>Corinth, Lovis</li>
+                            <li>Cross, Henri-edmond</li>
+                            <li>Cullen, Maurice Galbraith</li>
+                            <li>Czanne, Paul</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iD">
+                        <ul class="authorUl">
+                            <li>Degas, Edgar</li>
+                            <li>Degouve, De Nuncques William</li>
+                            <li>Dewhurst, Wynford</li>
+                            <li>Dubois-pillet, Albert</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iE">
+                        <ul class="authorUl">
+                            <li>Edelfelt, Albert</li>
+                            <li>Ensor, James</li>
+                            <li>Evenepoel, Henri</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iF">
+                        <ul class="authorUl">
+                            <li>Ferenczy, Kroly</li>
+                            <li>Finch, Alfred William</li>
+                            <li>Fortuny, Y Marsal Mariano</li>
+                            <li>Frieseke, Frederick Carl</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iG">
+                        <ul class="authorUl">
+                            <li>Gallen-kallela, Akseli</li>
+                            <li>Gauguin, Paul</li>
+                            <li>Gilman, Harold</li>
+                            <li>Goeneutte, Norbert</li>
+                            <li>Gonzals, Eva</li>
+                            <li>Gore, Spencer Frederick</li>
+                            <li>Grohar, Ivan</li>
+                            <li>Grubicy, De Dragon Vittore</li>
+                            <li>Guillaumin, Armand</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iH">
+                        <ul class="authorUl">
+                            <li>Haberle, John</li>
+                            <li>Hale, Philip Leslie</li>
+                            <li>Hassam, Childe</li>
+                            <li>Heyerdahl, Hans Olaf</li>
+                            <li>Hodler, Ferdinand</li>
+                            <li>Hosched-monet, Blanche</li>
+                            <li>Hudeek, Antonn</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iI">
+                        <ul class="authorUl">
+                            <li>Israels, Isaac Lazarus</li>
+                            <li>Israls, Jozef</li>
+                            <li>Ivnyi, Grnwald Bla</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iJ">
+                        <ul class="authorUl">
+                            <li>Johansen, Viggo</li>
+                            <li>Jongkind, Johan Barthold</li>
+                            <li>Josephson, Ernst</li>
+                            <li>Jrnefelt, Eero</li>
+                        </ul>
+
+                    </div>
+                    <div class="tab-pane fade in" id="iK">
+                        <ul class="authorUl">
+                            <li>Korovin, Konstantin Alekseyevich</li>
+                            <li>Kreuger, Nils Edvard</li>
+                            <li>Krohg, Christian</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iL">
+                        <ul class="authorUl">
+                            <li>La, Thangue Henry Herbert</li>
+                            <li>Lawson, Ernst</li>
+                            <li>Lebeda, Otakar</li>
+                            <li>Lebourg, Albert-charles</li>
+                            <li>Leistikow, Walter</li>
+                            <li>Lemmen, Georges</li>
+                            <li>Levitan, Isaak Ilyich</li>
+                            <li>Lewiski, Wadisaw</li>
+                            <li>Liebermann, Max</li>
+                            <li>Luce, Maximilien</li>
+                            <li>Luchian, Tefan</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iM">
+                        <ul class="authorUl">
+                            <li>Maitland, Paul</li>
+                            <li>Makart, Hans</li>
+                            <li>Manet, Edouard</li>
+                            <li>Maris, Matthijs</li>
+                            <li>Maris, Willem</li>
+                            <li>Maureau, Alphonse</li>
+                            <li>Mauve, Anton</li>
+                            <li>Mcnicoll, Helen Galloway</li>
+                            <li>Metcalf, Willard Leroy</li>
+                            <li>Milievi, Kosta</li>
+                            <li>Mir, Trinxet Joaqum</li>
+                            <li>Monet, Claude</li>
+                            <li>Morisot, Berthe</li>
+                            <li>Morrice, James Wilson</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iN">
+                        <ul class="authorUl">
+                            <li>Nittis, Giuseppe De</li>
+                            <li>Nomellini, Plinio</li>
+                            <li>Nordstrm, Karl Fredrik</li>
+
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iP">
+                        <ul class="authorUl">
+                            <li>Pankiewicz, Jzef</li>
+                            <li>Pauli, Hanna</li>
+                            <li>Paulsen, Julius</li>
+                            <li>Pellizza, Da Volpedo Giuseppe</li>
+                            <li>Perry, Lilla Cabot</li>
+                            <li>Petrovi, Nadeda</li>
+                            <li>Philipsen, Theodor Esbern</li>
+                            <li>Piette, Ludovic</li>
+                            <li>Pissarro, Camille</li>
+                            <li>Pissarro, Lucien</li>
+                            <li>Podkowiski, Wadysaw</li>
+                            <li>Preisler, Jan</li>
+                            <li>Prendergast, Maurice Brazil</li>
+                            <li>Previati, Gaetano</li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-pane fade in" id="iR">
+                        <ul class="authorUl">
+                            <li>Redon, Odilon</li>
+                            <li>Regoyos, Y Valds Dario De</li>
+                            <li>Renoir, Pierre-auguste</li>
+                            <li>Ring, Laurits Andersen</li>
+                            <li>Rippl-rnai, Jzsef</li>
+                            <li>Robinson., Theodore</li>
+                            <li>Rohlfs, Christian</li>
+                            <li>Rouart, Henri Stanislas</li>
+                            <li>Roussel, Theodore</li>
+                            <li>Rusiol, Y Prats Santiago</li>
+                            <li>Rysselberghe, Tho Van</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iS">
+                        <ul class="authorUl">
+                            <li>Segantini, Giovanni</li>
+                            <li>Seurat, Georges</li>
+                            <li>Sickert, Walter Richard</li>
+                            <li>Signac, Paul</li>
+                            <li>Sisley, Alfred</li>
+                            <li>Skarbina, Franz</li>
+                            <li>Slavek, Antonn</li>
+                            <li>Slavona, Maria</li>
+                            <li>Slevogt, Max</li>
+                            <li>Sorolla, Y Bastida Joaqun</li>
+                            <li>Srusier, Paul</li>
+                            <li>Stanisawski, Jan</li>
+                            <li>Starr, Sidney</li>
+                            <li>Steer, Philip Wilson</li>
+                            <li>Stuck, Franz Von</li>
+                            <li>Suzor-cot, Marc Aurle De Foy</li>
+                            <li>Szinyei, Merse Pl</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iT">
+                        <ul class="authorUl">
+                            <li>Tarbell, Edmund Charles</li>
+                            <li>Tommasi, Adolfo</li>
+                            <li>Toorop, Jan</li>
+                            <li>Toulouse-lautrec, Henri De</li>
+                            <li>Trbner, Wilhelm</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iU">
+                        <ul class="authorUl">
+                            <li>Uhde, Fritz Van</li>
+                            <li>Ury, Lesser</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iV">
+                        <ul class="authorUl">
+                            <li>Van Gogh, Vincent</li>
+                            <li>Velde, Henry Van De</li>
+                            <li>Vonnoh, Robert William</li>
+                            <li>Vuillard, Douard</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="iW">
+                        <ul class="authorUl">
+                            <li>Walton, Edward Arthur</li>
+                            <li>Weir, Julian Alden</li>
+                            <li>Weisgerber, Albert</li>
+                            <li>Werenskiold, Erik</li>
+                            <li>Westerholm, Victor Axel</li>
+                            <li>Whistler, James Abbot Mcneill</li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-pane fade in" id="iZ">
+                        <ul class="authorUl">
+                            <li>Zandomeneghi, Federico</li>
+                            <li>Zorn, Anders</li>
+                            <li>Zuloaga, Y Zabaleta Ignacio</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- the panel of Realism -->
+        <div class="sidebar-pane" id="realAuthorList">
+            <h1 class="sidebar-header"><span class="sidebar-close" style="padding-top: 16px;padding-left: 5px;">
+                <span class="glyphicon glyphicon-remove"></span></span><img src="css/images/realpp.jpg" style="height: 70px;width:170px">
+            </h1>
+            <div class="tabbable tabs-left" style="height:600px;overflow-y: scroll;">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#reA" data-toggle="tab">A</a></li>
+                    <li><a href="#reB" data-toggle="tab">B</a></li>
+                    <li><a href="#reC" data-toggle="tab">C</a></li>
+                    <li><a href="#reD" data-toggle="tab">D</a></li>
+                    <li><a href="#reE" data-toggle="tab">E</a></li>
+                    <li><a href="#reF" data-toggle="tab">F</a></li>
+                    <li><a href="#reG" data-toggle="tab">G</a></li>
+                    <li><a href="#reH" data-toggle="tab">H</a></li>
+                    <li><a href="#reI" data-toggle="tab">I</a></li>
+                    <li><a href="#reJ" data-toggle="tab">J</a></li>
+                    <li><a href="#reK" data-toggle="tab">K</a></li>
+                    <li><a href="#reL" data-toggle="tab">L</a></li>
+                    <li><a href="#reM" data-toggle="tab">M</a></li>
+                    <li><a href="#reN" data-toggle="tab">N</a></li>
+                    <li><a href="#reP" data-toggle="tab">P</a></li>
+                    <li><a href="#reR" data-toggle="tab">R</a></li>
+                    <li><a href="#reS" data-toggle="tab">S</a></li>
+                    <li><a href="#reT" data-toggle="tab">T</a></li>
+                    <li><a href="#reU" data-toggle="tab">U</a></li>
+                    <li><a href="#reV" data-toggle="tab">V</a></li>
+                    <li><a href="#reW" data-toggle="tab">W</a></li>
+                    <li><a href="#reZ" data-toggle="tab">Z</a></li>
+                </ul>
+                <div id="realList" class="tab-content" style="overflow-y: auto">
+                    <div class="tab-pane fade in active" id="reA">
+                        <ul class="authorUl">
+                            <li>Abbati, Giuseppe</li>
+                            <li>Achenbach, Oswald</li>
+                            <li>Aivazovsky, Ivan Konstantinovich</li>
+                            <li>Ancona, Vito D'</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reB">
+                        <ul class="authorUl">
+                            <li>Banti, Cristiano</li>
+                            <li>Barker, Thomas Jones</li>
+                            <li>Beaux, Cecilia</li>
+                            <li>Benczr, Gyula</li>
+                            <li>Benouville, Jean-achille</li>
+                            <li>Besnard, Albert</li>
+                            <li>Bloch, Carl Heinrich</li>
+                            <li>Bonheur, Rosa</li>
+                            <li>Bonnat, Lon-joseph-florentin</li>
+                            <li>Borrani, Odoardo</li>
+                            <li>Bouguereau, William-adolphe</li>
+                            <li>Boulanger, Gustave</li>
+                            <li>Bresolin, Domenico</li>
+                            <li>Breton, Jules</li>
+                            <li>Bridell, Frederick Lee</li>
+                            <li>Buland, Jean-eugne</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reC">
+                        <ul class="authorUl">
+                            <li>Cabanel, Alexandre</li>
+                            <li>Cabianca, Vincenzo</li>
+                            <li>Cammarano, Michele</li>
+                            <li>Carolus-duran</li>
+                            <li>Carrire, Eugne</li>
+                            <li>Cassioli, Amos</li>
+                            <li>Castiglione, Giuseppe</li>
+                            <li>Cazin, Jean-charles</li>
+                            <li>Charles, James</li>
+                            <li>Chernetsov, Grigory Grigorievich</li>
+                            <li>Ciardi, Guglielmo</li>
+                            <li>Ciseri, Antonio</li>
+                            <li>Coignet, Jules</li>
+                            <li>Cooke, Edward William</li>
+                            <li>Cooke, George</li>
+                            <li>Cormon, Fernand</li>
+                            <li>Cornet, Jacobus Ludovicus</li>
+                            <li>Corot, Jean-baptiste Camille</li>
+                            <li>Cotman, Frederick George</li>
+                            <li>Courbet, Gustave</li>
+                            <li>Cropsey, Jasper Francis</li>
+                            <li>Cristiano Banti</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reD">
+                        <ul class="authorUl">
+                            <li>Dagnan-bouveret, Pascal-adolphe-jean</li>
+                            <li>Daubigny, Charles-franois</li>
+                            <li>Dek-bner, Lajos</li>
+                            <li>Detaille, Jean Baptiste Edouard</li>
+                            <li>Devis, Arthur William</li>
+                            <li>Devis, Thomas Anthony</li>
+                            <li>Diaz, De La Pea Narcisse Virgile</li>
+                            <li>Dillens, Adolphe-alexandre</li>
+                            <li>Dillens, Hendrick Joseph</li>
+                            <li>Dugoni, Antonio</li>
+                            <li>Dupr, Jules</li>
+                            <li>Dupr, Julien</li>
+                            <li>Durand-brager, Jean Baptiste Henri</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reE">
+                        <ul class="authorUl">
+                            <li>Eakins, Thomas</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reF">
+                        <ul class="authorUl">
+                            <li>Fantin-latour, Henri</li>
+                            <li>Fattori, Giovanni</li>
+                            <li>Favretto, Giacomo</li>
+                            <li>Flameng, Franois</li>
+                            <li>Fnyes, Adolf</li>
+                            <li>Forain, Jean-louis</li>
+                            <li>Fragiacomo, Pietro</li>
+                            <li>Frlich, Lorenz</li>
+                            <li>Fromentin, Eugne</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reG">
+                        <ul class="authorUl">
+                            <li>Gelati, Lorenzo</li>
+                            <li>Geoffroy, Henry-jules-jean</li>
+                            <li>Gervex, Henri</li>
+                            <li>Gordigiani, Michele</li>
+                            <li>Graeb, Carl Georg Anton</li>
+                            <li>Grigorescu, Nicolae</li>
+                            <li>Grme, Jean-lon</li>
+                            <li>Guthrie, James</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reH">
+                        <ul class="authorUl">
+                            <li>Hagen, August Mathias</li>
+                            <li>Hamman, Edouard</li>
+                            <li>Harnett, William Michael</li>
+                            <li>Harpignies, Henri-joseph</li>
+                            <li>Hau, Edward Petrovich</li>
+                            <li>Hawkins, Louis Welden</li>
+                            <li>Heade, Martin Johnson</li>
+                            <li>Hildebrandt, Ferdinand Theodor</li>
+                            <li>Holl, Frank</li>
+                            <li>Hollsy, Simon</li>
+                            <li>Homer, Winslow</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reI">
+                        <ul class="authorUl">
+                            <li>Induno, Gerolamo</li>
+                            <li>Innes, George</li>
+                            <li>Ittenbach, Franz</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reJ">
+                        <ul class="authorUl">
+                            <li>Jacque, Charles Mile</li>
+                            <li>Jensen, Christian Albrecht</li>
+                            <li>Jimnez, Y Aranda Luis</li>
+                            <li>Joris, Pio</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reK">
+                        <ul class="authorUl">
+                            <li>Keyser, Nicaise De</li>
+                            <li>Klinger, Max</li>
+                            <li>Knip, Henritte</li>
+                            <li>Kryer, Peter Severin</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reL">
+                        <ul class="authorUl">
+                            <li>Lane, Fitz Hugh</li>
+                            <li>Laurens, Jean-paul</li>
+                            <li>Lear, Edward</li>
+                            <li>Lega, Silvestro</li>
+                            <li>Legros, Alphonse</li>
+                            <li>Leibl, Wilhelm</li>
+                            <li>Leickert, Charles Henri Joseph</li>
+                            <li>Lenbach, Franz Von</li>
+                            <li>Lerolle, Henry</li>
+                            <li>Leys, Henri</li>
+                            <li>Lhermitte, Lon-augustin</li>
+                            <li>Liezen-mayer, Sndor</li>
+                            <li>Ligeti, Antal</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reM">
+                        <ul class="authorUl">
+                            <li>Maccari, Cesare</li>
+                            <li>Makovsky, Konstantin Yegorovich</li>
+                            <li>Makovsky, Vladimir Yegorovich</li>
+                            <li>Maris, Jacobus Hendricus</li>
+                            <li>Matejko, Jan</li>
+                            <li>May, Edward Harrison</li>
+                            <li>Mednynszky, Lszl</li>
+                            <li>Menzel, Adolph Von</li>
+                            <li>Millais, Sir John Everett</li>
+                            <li>Millet, Jean-franois</li>
+                            <li>Morbelli, Angelo</li>
+                            <li>Moreau, Gustave</li>
+                            <li>Mszly, Gza</li>
+                            <li>Munkcsy, Mihly</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reN">
+                        <ul class="authorUl">
+                            <li>Nagy, Balogh Jnos</li>
+                            <li>Nono, Luigi</li>
+                            <li>Nordenberg, Bengt</li>
+
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reP">
+                        <ul class="authorUl">
+                            <li>Pal, Lszl</li>
+                            <li>Palizzi, Filippo</li>
+                            <li>Paton, Sir Joseph Noel</li>
+                            <li>Peto, John Frederick</li>
+                            <li>Pettenkofen, August Von</li>
+                            <li>Piloty, Karl Theodor Von</li>
+                            <li>Pils, Isidore-alexandre-augustin</li>
+                            <li>Polenov, Vasily Dmitrievich</li>
+                            <li>Potmont, Adolphe Martial</li>
+                            <li>Premazzi, Luigi</li>
+                            <li>Puccinelli, Antonio</li>
+                            <li>Puvis, De Chavannes Pierre-ccile</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reR">
+                        <ul class="authorUl">
+                            <li>Raffalli, Jean-franois</li>
+                            <li>Ramberg, Arthur Georg Von</li>
+                            <li>Rasmussen, Georg Anton</li>
+                            <li>Repin, Ilya Yefimovich</li>
+                            <li>Ribot, Thodule-augustin</li>
+                            <li>Robie, Jean-baptiste</li>
+                            <li>Roelofs, Willem</li>
+                            <li>Romako, Anton</li>
+                            <li>Rousseau, Henri</li>
+                            <li>Rousseau, Thodore</li>
+                            <li>Russ, Robert</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reS">
+                        <ul class="authorUl">
+                            <li>Saltini, Pietro</li>
+                            <li>Sarazin, De Belmont Louise Josphine</li>
+                            <li>Sargent, John Singer</li>
+                            <li>Scholderer, Otto Franz</li>
+                            <li>Seghers, Corneille</li>
+                            <li>Serov, Valentin</li>
+                            <li>Signorini, Telemaco</li>
+                            <li>Sohlberg, Harald</li>
+                            <li>Sokolov, Pyotr Fyodorovich</li>
+                            <li>Stevens, Alfred</li>
+                            <li>Stroobant, Franois</li>
+                            <li>Swoboda, Rudolph Der G.</li>
+                            <li>Szkely, Bertalan</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reT">
+                        <ul class="authorUl">
+                            <li>Thaulow, Fritz</li>
+                            <li>Thoma, Hans</li>
+                            <li>Tissot, James</li>
+                            <li>Tivoli, Serafino De</li>
+                            <li>Toma, Gioacchino</li>
+                            <li>Tornyai, Jnos</li>
+                            <li>Troyon, Constant</li>
+                            <li>Tuxen, Laurits Regner</li>
+                            <li>Twachtman, John Henry</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reU">
+                        <ul class="authorUl">
+                            <li>Ukhtomsky, Konstantin Andreyevich</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reV">
+                        <ul class="authorUl">
+                            <li>Vallotton, Flix</li>
+                            <li>Vereshchagin, Vasily Petrovich</li>
+                            <li>Vereshchagin, Vasily Vasilyevich</li>
+                            <li>Verschuur, Wouter</li>
+                            <li>Vinea, Francesco</li>
+                            <li>Vollon, Antoine</li>
+                            <li>Von, Adolphe</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reW">
+                        <ul class="authorUl">
+                            <li>Waterhouse, John William</li>
+                            <li>Webb, James</li>
+                            <li>Williams, George Augustus</li>
+                            <li>Wimar, Carl</li>
+                            <li>Wyld, William</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="reZ">
+                        <ul class="authorUl">
+                            <li>Zichy, Mihly</li>
+                            <li>Ziem, Flix</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- the panel of Romanticism -->
+        <div class="sidebar-pane" id="romAuthorList">
+            <h1 class="sidebar-header"><span class="sidebar-close" style="padding-top: 16px;padding-left: 5px;">
+                <span class="glyphicon glyphicon-remove"></span></span><img src="css/images/rompp.jpg"
+                                                                            style="height: 70px;width:170px">
+            </h1>
+            <div class="tabbable tabs-left" style="height:600px;overflow-y: scroll;">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#roA" data-toggle="tab">A</a></li>
+                    <li><a href="#roB" data-toggle="tab">B</a></li>
+                    <li><a href="#roC" data-toggle="tab">C</a></li>
+                    <li><a href="#roD" data-toggle="tab">D</a></li>
+                    <li><a href="#roE" data-toggle="tab">E</a></li>
+                    <li><a href="#roF" data-toggle="tab">F</a></li>
+                    <li><a href="#roG" data-toggle="tab">G</a></li>
+                    <li><a href="#roH" data-toggle="tab">H</a></li>
+                    <li><a href="#roI" data-toggle="tab">I</a></li>
+                    <li><a href="#roJ" data-toggle="tab">J</a></li>
+                    <li><a href="#roK" data-toggle="tab">K</a></li>
+                    <li><a href="#roL" data-toggle="tab">L</a></li>
+                    <li><a href="#roM" data-toggle="tab">M</a></li>
+                    <li><a href="#roN" data-toggle="tab">N</a></li>
+                    <li><a href="#roO" data-toggle="tab">O</a></li>
+                    <li><a href="#roP" data-toggle="tab">P</a></li>
+                    <li><a href="#roQ" data-toggle="tab">Q</a></li>
+                    <li><a href="#roR" data-toggle="tab">R</a></li>
+                    <li><a href="#roS" data-toggle="tab">S</a></li>
+                    <li><a href="#roT" data-toggle="tab">T</a></li>
+                    <li><a href="#roV" data-toggle="tab">V</a></li>
+                    <li><a href="#roW" data-toggle="tab">W</a></li>
+                </ul>
+                <div id="romList" class="tab-content" style="overflow-y: auto">
+                    <div class="tab-pane fade in active" id="roA">
+                        <ul class="authorUl">
+                            <li>Abildgaard, Nicolai</li>
+                            <li>Adam, Albrecht</li>
+                            <li>Allston, Washington</li>
+                            <li>Alma-tadema, Lawrence</li>
+                            <li>Amerling, Friedrich Von</li>
+                            <li>Anderson, William</li>
+                            <li>Antigna, Alexandre</li>
+                            <li>Assche, Henri Van</li>
+                            <li>Azeglio, Massimo Taparelli Marquis D'</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roB">
+                        <ul class="authorUl">
+                            <li>Barabs, Mikls</li>
+                            <li>Barker, Thomas</li>
+                            <li>Bcklin, Arnold</li>
+                            <li>Begas, Carl The Elder</li>
+                            <li>Benoist, Marie-guillemine</li>
+                            <li>Benouville, Franois-lon</li>
+                            <li>Berjon, Antoine</li>
+                            <li>Bezzuoli, Giuseppe</li>
+                            <li>Bingham, George Caleb</li>
+                            <li>Blechen, Karl</li>
+                            <li>Boilly, Louis Lopold</li>
+                            <li>Bonington, Richard Parkes</li>
+                            <li>Borsos, Jzsef</li>
+                            <li>Brkel, Heinrich</li>
+                            <li>Broc, Jean</li>
+                            <li>Brocky, Kroly</li>
+                            <li>Brodszky, Sndor</li>
+                            <li>Brown, Ford Madox</li>
+                            <li>Bryullov, Aleksandr Pavlovich</li>
+                            <li>Bryullov, Karl Pavlovich</li>
+                            <li>Burne-jones, Edward</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roC">
+                        <ul class="authorUl">
+                            <li>Caffi, Ippolito</li>
+                            <li>Calame, Alexandre</li>
+                            <li>Castellano, Manuel</li>
+                            <li>Catel, Franz Ludwig</li>
+                            <li>Catlin, George</li>
+                            <li>Charlet, Nicolas-toussaint</li>
+                            <li>Charpentier, Constance</li>
+                            <li>Chassriau, Thodore</li>
+                            <li>Church, Frederic Edwin</li>
+                            <li>Clonney, James Goodwyn</li>
+                            <li>Cole, Thomas</li>
+                            <li>Collins, William</li>
+                            <li>Constable, John</li>
+                            <li>Cornelius, Peter</li>
+                            <li>Cotman, John Sell</li>
+                            <li>Couder, Auguste</li>
+                            <li>Court, Joseph-dsir</li>
+                            <li>Couture, Thomas</li>
+                            <li>Cox, David</li>
+                            <li>Crome, John</li>
+                            <li>Csontvry, Kosztka Tivadar</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roD">
+                        <ul class="authorUl">
+                            <li>Dael, Jan Frans Van</li>
+                            <li>Daffinger, Moritz Michael</li>
+                            <li>Dahl, Johan Christian Clausen</li>
+                            <li>Danhauser, Josef Franz</li>
+                            <li>Daumier, Honor</li>
+                            <li>Dauzats, Adrien</li>
+                            <li>Dawe, George</li>
+                            <li>Decamps, Alexandre Gabriel</li>
+                            <li>Delacroix, Eugne</li>
+                            <li>Delaroche, Paul</li>
+                            <li>Deppe, Ludwig</li>
+                            <li>Dont, Jnos</li>
+                            <li>Dubufe, Edouard</li>
+                            <li>Durand, Asher Brown</li>
+                            <li>Dyce, William</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roE">
+                        <ul class="authorUl">
+                            <li>Ender, Johann</li>
+                            <li>Ender, Thomas</li>
+                            <li>Engert, Erasmus</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roF">
+                        <ul class="authorUl">
+                            <li>Fendi, Peter</li>
+                            <li>Feuerbach, Anselm Friedrich</li>
+                            <li>Fhrich, Joseph Von</li>
+                            <li>Fischbach, Johann</li>
+                            <li>Flandrin, Hippolyte</li>
+                            <li>Fohr, Carl Philipp</li>
+                            <li>Fontanesi, Antonio</li>
+                            <li>Franque, Jean-pierre</li>
+                            <li>Friedrich, Caspar David</li>
+                            <li>Fries, Ernst</li>
+                            <li>Frost, William Edward</li>
+                            <li>Fuseli, John Henry</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roG">
+                        <ul class="authorUl">
+                            <li>Gallait, Louis</li>
+                            <li>Geikie, Walter</li>
+                            <li>Gigante, Giacinto</li>
+                            <li>Gigola, Giambattista</li>
+                            <li>Gleyre, Charles-gabriel</li>
+                            <li>Glover, John</li>
+                            <li>Gonzaga, Pietro Di Gottardo</li>
+                            <li>Goya, Y Lucientes Francisco De</li>
+                            <li>Grard, Franois</li>
+                            <li>Gricault, Thodore</li>
+                            <li>Grtner, Eduard</li>
+                            <li>Gudin, Thodore</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roH">
+                        <ul class="authorUl">
+                            <li>Hansen, Constantin</li>
+                            <li>Hasenclever, Johann Peter</li>
+                            <li>Hayez, Francesco</li>
+                            <li>Hayter, George</li>
+                            <li>Hbner, Julius</li>
+                            <li>Hess, Heinrich Maria Von</li>
+                            <li>Hess, Peter Von</li>
+                            <li>Hickey, Thomas</li>
+                            <li>Hildebrandt, Eduard</li>
+                            <li>Horny, Franz</li>
+                            <li>Hummel, Johann Erdmann</li>
+                            <li>Hunt, William Holman</li>
+                            <li>Hunt, William Morris</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roI">
+                        <ul class="authorUl">
+                            <li>Isabey, Eugne</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roJ">
+                        <ul class="authorUl">
+                            <li>Jacquand, Claudius</li>
+                        </ul>
+
+                    </div>
+                    <div class="tab-pane fade in" id="roK">
+                        <ul class="authorUl">
+                            <li>Kaulbach, Wilhelm Von</li>
+                            <li>Kbke, Christen</li>
+                            <li>Kensett, John Frederick</li>
+                            <li>Kersting, Georg Friedrich</li>
+                            <li>Kinsoen, Franois-joseph</li>
+                            <li>Kiss, Blint</li>
+                            <li>Klenze, Leo Von</li>
+                            <li>Kobell, Wilhelm Von</li>
+                            <li>Koch, Joseph Anton</li>
+                            <li>Koekkoek, Barend Cornelis</li>
+                            <li>Kopisch, August</li>
+                            <li>Krafft, Johann Peter</li>
+                            <li>Krger, Franz</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roL">
+                        <ul class="authorUl">
+                            <li>Lami, Eugne Louis</li>
+                            <li>Landseer, Sir Edwin Henry</li>
+                            <li>Lecomte, Hippolyte</li>
+                            <li>Lehmann, Henri</li>
+                            <li>Leitch, William Leighton</li>
+                            <li>Leprince, Auguste-xavier</li>
+                            <li>Lessing, Karl Friedrich</li>
+                            <li>Leutze, Emanuel Gottlieb</li>
+                            <li>Lies, Jozef Hubert</li>
+                            <li>Lipparini, Ludovico</li>
+                            <li>Loos, Friedrich</li>
+                            <li>Lotz, Kroly</li>
+                            <li>Lpez, Y Piquer Bernardo</li>
+                            <li>Lpez, Y Piquer Luis</li>
+                            <li>Lpez, Y Portaa Vicente</li>
+                            <li>Lucas, Velzquez Eugenio</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roM">
+                        <ul class="authorUl">
+                            <li>Maclise, Daniel</li>
+                            <li>Mactaggart, William</li>
+                            <li>Madarsz, Viktor</li>
+                            <li>Madou, Jean-baptiste</li>
+                            <li>Marastoni, Jakab</li>
+                            <li>Mares, Hans Von</li>
+                            <li>Marilhat, Prosper</li>
+                            <li>Mark, Andrs</li>
+                            <li>Mark, Kroly The Elder</li>
+                            <li>Marshall, Benjamin</li>
+                            <li>Martin, John</li>
+                            <li>Matteini, Teodoro</li>
+                            <li>Meissonier, Jean-louis-ernest</li>
+                            <li>Melbye, Anton</li>
+                            <li>Minardi, Tommaso</li>
+                            <li>Monticelli, Adolphe</li>
+                            <li>Morelli, Domenico</li>
+                            <li>Mulready, William</li>
+
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roN">
+                        <ul class="authorUl">
+                            <li>Nasmyth, Alexander</li>
+                            <li>Nasmyth, Patrick</li>
+                            <li>Neugebauer, Josef</li>
+                            <li>Nigg, Joseph</li>
+                            <li>Nuyen, Wijnandus Johannes Josephus</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roO">
+                        <ul class="authorUl">
+                            <li>Oehme, Ernst Ferdinand</li>
+                            <li>Olivier, Ferdinand</li>
+                            <li>Opitz, Georg Emanuel</li>
+                            <li>Overbeck, Friedrich</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roP">
+                        <ul class="authorUl">
+                            <li>Palmer, Samuel</li>
+                            <li>Parra, Abril Miguel</li>
+                            <li>Peale, James</li>
+                            <li>Pforr, Franz</li>
+                            <li>Phillips, Thomas</li>
+                            <li>Pieneman, Jan Willem</li>
+                            <li>Prud'hon, Pierre-paul</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roQ">
+                        <ul class="authorUl">
+                            <li>Quaglio, Domenico</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roR">
+                        <ul class="authorUl">
+                            <li>Rahl, Carl</li>
+                            <li>Ramboux, Johann Anton Alban</li>
+                            <li>Rayski, Ferdinand Von</li>
+                            <li>Rebell, Joseph</li>
+                            <li>Regnault, Henri</li>
+                            <li>Rehbenitz, Theodor Markus</li>
+                            <li>Reinagle, Ramsay Richard</li>
+                            <li>Reinhart, Johann Christian</li>
+                            <li>Reinhold, Heinrich</li>
+                            <li>Richard, Fleury-franois</li>
+                            <li>Richter, Adrian Ludwig</li>
+                            <li>Riedel, August</li>
+                            <li>Roberts, David</li>
+                            <li>Rombauer, Jnos</li>
+                            <li>Rossetti, Dante Gabriel</li>
+                            <li>Rottmann, Carl</li>
+                            <li>Rrbye, Martinus</li>
+                            <li>Runge, Philipp Otto</li>
+                            <li>Runk, Ferdinand</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roS">
+                        <ul class="authorUl">
+                            <li>Saint-evre, Gillot</li>
+                            <li>Saint-jean, Simon</li>
+                            <li>Salmon, Robert</li>
+                            <li>Schadow, Wilhelm Von</li>
+                            <li>Scharf, George</li>
+                            <li>Schdlberger, Johann Nepomuk</li>
+                            <li>Scheffer, Ary</li>
+                            <li>Schnetz, Jean-victor</li>
+                            <li>Schnorr, Von Carolsfeld Julius</li>
+                            <li>Schwind, Moritz Von</li>
+                            <li>Scott, William Bell</li>
+                            <li>Shchedrin, Sil'vestr Fedosyevich</li>
+                            <li>Spitzweg, Carl</li>
+                            <li>Stanfield, Clarkson</li>
+                            <li>Steinfeld, Franz</li>
+                            <li>Steinle, Edward Jakob Von</li>
+                            <li>Stieler, Karl Joseph</li>
+                            <li>Sully, Thomas</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roT">
+                        <ul class="authorUl">
+                            <li>Tassaert, Octave</li>
+                            <li>Telepy, Kroly</li>
+                            <li>Tropinin, Vasily Andreyevich</li>
+                            <li>Trutat, Flix</li>
+                            <li>Turner, Joseph Mallord William</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roV">
+                        <ul class="authorUl">
+                            <li>Vafflard, Pierre-auguste</li>
+                            <li>Vanderlyn, John</li>
+                            <li>Veit, Philipp</li>
+                            <li>Verboeckhoven, Eugne-joseph</li>
+                            <li>Verheyen, Jan Hendrik</li>
+                            <li>Vernet, Horace</li>
+                            <li>Veron, Alexandre Paul Joseph</li>
+                            <li>Vogel, Von Vogelstein Carl Christian</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="roW">
+                        <ul class="authorUl">
+                            <li>Waldmller, Fedinand Georg</li>
+                            <li>Ward, James</li>
+                            <li>Wasmann, Friedrich</li>
+                            <li>Weber, Henrik</li>
+                            <li>Wiertz, Antoine</li>
+                            <li>Wilkie, Sir David</li>
+                            <li>Winterhalter, Franz Xaver</li>
+                            <li>Wittmer, Johann Michael</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Map -->
+<div id="basicMap" class="sidebar-map" style="height: 100vh"></div>
+<script>
+
+    var corner1 = L.latLng(85.712, 360),
+        corner2 = L.latLng(-50.774, -360),
+        bounds = L.latLngBounds(corner1, corner2);
+
+    var mymap = L.map('basicMap', {
+        zoomSnap: 0.25,
+        maxBounds: bounds,
+        trackResize: true
+    }).setView([40.505, 15], 2.35);
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/jingyan/cj51kol9z1fnm2rmy82k24hqm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamluZ3lhbiIsImEiOiJjajN5dDU5bXUwMDhwMzNwanBxeGZoZDZrIn0.-5_CMLp6GDZYhe-7Ra_w_g', {
+        maxZoom: 16,
+        minZoom: 2,
+        Attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        id: 'mapbox.streets'
+    }).addTo(mymap);
+
+    <!-- define variable sidebar -->
+    var sidebar = L.control.sidebar('sidebar').addTo(mymap);
+
+    <!-- define variable timeline -->
+    var sliderControl = L.control.sliderControl();
+    var testlayer = L.geoJson();
+
+
+    <!-- respectively customize the characteristics marker of Neoclassicism, Impressionism, Realism, Romanticism -->
+    var neoIcon = L.icon({
+        iconUrl: "css/images/neo.png",
+        iconSize: [30, 35],
+        iconAnchor: [12, 41]
+    });
+    var impIcon = L.icon({
+        iconUrl: "css/images/imp.png",
+        iconSize: [30, 35],
+        iconAnchor: [12, 41]
+    });
+    var realIcon = L.icon({
+        iconUrl: "css/images/real.png",
+        iconSize: [30, 35],
+        iconAnchor: [12, 41]
+    });
+    var romIcon = L.icon({
+        iconUrl: "css/images/rom.png",
+        iconSize: [30, 35],
+        iconAnchor: [12, 41]
+    });
+
+    <!-- respectively define cluster marker groups of  Neoclassicism, Impressionism, Realism, Romanticism -->
+    var neoLayer = L.markerClusterGroup({showCoverageOnHover: false});
+    var impLayer = L.markerClusterGroup({showCoverageOnHover: false});
+    var realLayer = L.markerClusterGroup({showCoverageOnHover: false});
+    var romLayer = L.markerClusterGroup({showCoverageOnHover: false});
+
+    var neoMarker;
+    var impMarker;
+    var realMarker;
+    var romMarker;
+
+    var currentMarker;
+
+    <!-- define authormaker to be used when a partiular author name is clicked in the 5 panels -->
+    var authorLayer = L.markerClusterGroup({showCoverageOnHover: false});
+    var authorMarker;
+    var authorClickValue;
+
+    var neoImg = document.getElementById("neoImgC");
+    var impImg = document.getElementById("impImgC");
+    var realImg = document.getElementById("realImgC");
+    var romImg = document.getElementById("romImgC");
+
+    neoImg.style.opacity = 0.5;
+    impImg.style.opacity = 0.5;
+    realImg.style.opacity = 0.5;
+    romImg.style.opacity = 0.5;
+
+    <!-- define detail window -->
+    var win;
+
+    var customOptions = {
+        'maxHeight': '230',
+        'maxWidth': '280',
+        'overflow': 'auto',
+        'className': 'custom'
+    };
+
+    function clickZoom(e) {
+
+        mymap.setView(e.target.getLatLng(), mymap.getZoom());
+
+    }
+    function clickZoom2(z) {
+
+        var arr2, mlat, mlng;
+
+        arr2 = z.split(";");
+        mlat = arr2[0];
+        mlng = arr2[1];
+        mymap.setView([mlat, mlng], 15);
+
+        authorLayer.eachLayer(function (layer) {
+            layer.openPopup([mlat, mlng]);
+        });
+
+        neoLayer.eachLayer(function (layer) {
+
+            if (layer._latlng.lat == mlat) {
+                layer.openPopup([mlat, mlng]);
+            }
+        });
+        impLayer.eachLayer(function (layer) {
+            if (layer._latlng.lat == mlat) {
+                layer.openPopup([mlat, mlng]);
+            }
+        });
+        realLayer.eachLayer(function (layer) {
+            if (layer._latlng.lat == mlat) {
+                layer.openPopup([mlat, mlng]);
+            }
+        });
+        romLayer.eachLayer(function (layer) {
+            if (layer._latlng.lat == mlat) {
+                layer.openPopup([mlat, mlng]);
+            }
+        });
+    }
+
+    <!-- define Author Search panel interaction and search algorithm -->
+    $('#authorName').on('keyup', function () {
+        authorSearch();
+    });
+    function authorSearch() {
+
+        sliderControl.onRemove(mymap);
+        var searchWord = document.getElementById('authorName').value;
+
+        $.getJSON("authorData.json", function (json) {
+
+            var options = {
+                shouldSort: true,
+                threshold: 0.0,
+                location: 0,
+                distance: 100,
+                maxPatternLength: 32,
+                minMatchCharLength: 1,
+                keys: [
+                    "properties.AUTHOR"
+                ]
+            };
+            var fuse = new Fuse(json, options);
+
+            var result = fuse.search(searchWord);
+
+            var data = [];
+
+            data.push('<ul style="list-style: none ">');
+
+            for (var i = 0; i < result.length; i++) {
+
+                if (i === 0) {
+
+                    data.push('<li title="' + result[i].properties.Genre + '">' + result[i].properties.AUTHOR + '</li>');
+                }
+
+                if (i !== 0 && result[i].properties.AUTHOR !== result[i - 1].properties.AUTHOR) {
+
+                    data.push('<li title="' + result[i].properties.Genre + '">' + result[i].properties.AUTHOR + '</li>');
+
+                }
+            }
+
+            data.push('</ul>');
+
+            document.getElementById('searchResult').innerHTML = data.join('');
+
+            d3.select("#searchResult").selectAll("li").on("click", function () {
+
+                var author = d3.select(this).text();
+                var genre = d3.select(this).property("title");
+
+                switch (genre) {
+                    case 'Neoclassicism':
+                        return neoAuthorClick(author);
+                    case 'Impressionism':
+                        return impAuthorClick(author);
+                    case 'Realism':
+                        return realAuthorClick(author);
+                    case 'Romanticism':
+                        return romAuthorClick(author);
+                }
+            });
+        });
+    }
+    function searchClick() {
+
+        sliderControl.onRemove(mymap);
+        document.getElementById('searchGlass').src = "css/images/search2.png"
+    }
+
+    $('.sidebar-content').mouseleave(function () {
+
+        $('.sidebar-close').click();
+        document.getElementById('searchGlass').src = "css/images/search.png"
+
+    });
+
+    $(function () {
+        $("[data-toggle='tooltip']").tooltip();
+    });
+    $(function () {
+        $("[data-toggle='popover']").popover();
+    });
+
+    <!-- define recommdation list -->
+    var recommendation = L.control.custom({
+        position: 'bottomleft',
+        content: '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"><span><img src="css/images/museum.png" style="height: 20px;margin-bottom:3px;"></span> Collections</h4><div id ="recommendName"></div></div><div id="recommendationL" class="panel-body"></div></div>',
+        classes: 'leaflet-bar',
+        style: {
+            position: 'absolute',
+            left: '0px',
+            bottom: '0px',
+            width: '270px'
+        },
+        events: {
+            dblclick: function () {
+                this.remove(mymap);
+            }
+        }
+
+    });
+
+    <!-- define resetView and show timeline buttons and their click function  -->
+    L.control.custom({
+        position: 'topleft',
+        content: '<button type="button" class="btn btn-default" data-trigger="hover" data-toggle="tooltip" data-placement="right" id="resetView" title="Reset View" style="padding: 4px 8px;border: hidden">' +
+        '<span class="glyphicon glyphicon-refresh"></span></button>',
+        classes: 'leaflet-bar',
+        style: {
+            margin: '5px 10px',
+            padding: '0px'
+        }
+    }).addTo(mymap);
+    $('#resetView').click(function () {
+        mymap.setView([40.505, -1], 2.35);
+
+    });
+    L.control.custom({
+        position: 'topleft',
+        content: '<button type="button" class="btn btn-default" data-trigger="hover" data-toggle="tooltip" data-placement="right" id="showSlider" title="Show Timeline" style="padding: 4px 8px;border: hidden">' +
+        '<span class="glyphicon glyphicon-time"></span></button>',
+        classes: 'leaflet-bar',
+        style: {
+            margin: '0px 10px',
+            padding: '0px'
+        }
+    }).addTo(mymap);
+    $('#showSlider').click(function () {
+
+        var d = dialog({
+            title: 'Warning',
+            content: 'Showing the timeline will close museum recommendation and lose the current selection of genre and author. Are you sure to leave the current status and go to the timeline interface?',
+            okValue: 'OK',
+            ok: function () {
+
+                $(".collapse").collapse('hide');
+
+                mymap.setView([40.505, -1], 2.35);
+                recommendation.remove(mymap);
+
+                authorLayer.clearLayers();
+                impLayer.clearLayers();
+                realLayer.clearLayers();
+                romLayer.clearLayers();
+                neoLayer.clearLayers();
+
+                neoImg.style.opacity = 0.5;
+                impImg.style.opacity = 0.5;
+                realImg.style.opacity = 0.5;
+                romImg.style.opacity = 0.5;
+
+                mymap.addControl(sliderControl);
+                sliderControl.startSlider();
+
+
+            },
+            cancelValue: 'Cancel',
+            cancel: function () {
+            }
+        });
+
+        var aa = neoImg.style.opacity;
+        var bb = impImg.style.opacity;
+        var cc = realImg.style.opacity;
+        var dd = romImg.style.opacity;
+
+        if (aa == 1.0 || bb == 1.0 || cc == 1.0 || dd == 1.0) {
+            d.show();
+        }
+    });
+
+    <!-- add listeners to all author names in the 4 genres panels -->
+    d3.select("#neoList").selectAll("li").on("click", function () {
+
+        var author = d3.select(this).text();
+        neoAuthorClick(author);
+
+    });
+    d3.select("#impList").selectAll("li").on("click", function () {
+
+        var author = d3.select(this).text();
+        impAuthorClick(author);
+
+    });
+    d3.select("#realList").selectAll("li").on("click", function () {
+
+        var author = d3.select(this).text();
+        realAuthorClick(author);
+
+    });
+    d3.select("#romList").selectAll("li").on("click", function () {
+
+        var author = d3.select(this).text();
+        romAuthorClick(author);
+
+    });
+
+    <!-- define and initialise the timeline -->
+    $.getJSON("wellData.json", function (json) {
+
+        testlayer = L.geoJson(json, {
+
+            pointToLayer: function (feature, latlng) {
+
+                switch (feature.properties.Genre) {
+                    case 'Neoclassicism':
+                        return L.marker(latlng, {icon: neoIcon}).on('click', clickZoom);
+                    case 'Impressionism':
+                        return L.marker(latlng, {icon: impIcon}).on('click', clickZoom);
+                    case 'Realism':
+                        return L.marker(latlng, {icon: realIcon}).on('click', clickZoom);
+                    case 'Romanticism':
+                        return L.marker(latlng, {icon: romIcon}).on('click', clickZoom);
+                }
+            }
+        });
+
+        sliderControl = L.control.sliderControl({
+            position: "bottomleft",
+            layer: testlayer,
+            follow: 1
+
+        });
+        mymap.addControl(sliderControl);
+        sliderControl.startSlider();
+
+    });
+
+    function Museum(name, count, latitude, lngtitude) {
+
+        this.name = name;
+        this.count = count;
+        this.latitude = latitude;
+        this.lngtitude = lngtitude;
+
+    }
+    function sortRule(a, b) {
+        return b.count - a.count;
+    }
+
+    <!-- customize the detail window content -->
+    function paintingPopup(url, detail) {
+
+        var arr, author, bd, date, plocation, genre, technique, ptitle;
+
+        arr = detail.split(";");
+        author = '' + arr[0];
+        bd = ' ' + arr[1];
+        date = ' ' + arr[2];
+        plocation = ' ' + arr[3];
+        genre = '' + arr[4];
+        technique = ' ' + arr[5];
+        ptitle = arr[6];
+
+        win = L.control.window(mymap, {title: ptitle, maxWidth: 900, modal: true})
+            .content('<img src="' + url + '" style="max-width: 740px"><p></p>' +
+                '<p class="myP"><strong>Author: </strong>' + author + '</p>' +
+                '<p class="myP"><strong>Born-Died: </strong>' + bd + '</p>' +
+                '<p class="myP"><strong>Date: </strong>' + date + '</p>' +
+                '<p class="myP"><strong>Location: </strong>' + plocation + '</p>' +
+                '<p class="myP"><strong>Genre:  </strong>' + genre + '</p>' +
+                '<p class="myP"><strong>Technique: </strong>' + technique + '</p>')
+            .show({
+                position: 'top'
+            });
+    }
+
+    <!-- the click function called when a author is clicked in the Neoclassicism panel -->
+    function neoAuthorClick(author) {
+
+
+        neoLayer.clearLayers();
+        authorLayer.clearLayers();
+
+        d3.json("Data.json", function (dataset) {
+
+            var lat, lng;
+            var poplist = [];
+            var popflag = [];
+            var urllist = [];
+
+            var museumList = [];
+            var m = 0;
+
+
+            for (var i = 0; i < dataset.length; i++) {
+
+                if (dataset[i].properties.AUTHOR === author) {
+
+                    lat = dataset[i].geometry.coordinates[1];
+                    lng = dataset[i].geometry.coordinates[0];
+
+
+                    <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                    if (m !== 0) {
+
+                        if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
+
+                            mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                            museumList.push(mymuseum);
+                            m = m + 1;
+
+                        } else {
+                            museumList[m - 1].count = museumList[m - 1].count + 1;
+                        }
+                    }
+                    if (m === 0) {
+                        mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                        museumList.push(mymuseum);
+                        m = 1;
+                    }
+
+                    var f = popflag.indexOf(lat);
+                    var t, tt, hh;
+
+                    <!-- create corresponding marker under this click conditions and define the popup content-->
+                    if (f === -1) {
+
+                        t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                        tt = dataset[i].properties.URL;
+                        hh = "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+
+                        authorMarker = L.marker(new L.latLng(lat, lng), {icon: neoIcon});
+                        authorMarker.on('click', clickZoom);
+                        authorMarker.bindTooltip(dataset[i].properties.LOCATION);
+                        authorMarker.bindPopup(hh, customOptions);
+
+                        popflag.push(lat);
+                        poplist.push(authorMarker);
+                        urllist.push(hh);
+
+                    } else {
+                        t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                        tt = dataset[i].properties.URL;
+
+                        urllist[f] = urllist[f] + "<span class='glyphicon glyphicon-chevron-down' style='color: white'></span>" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+                        poplist[f].bindPopup(urllist[f], customOptions);
+                    }
+                }
+            }
+            for (var k = 0; k < poplist.length; k++) {
+                authorLayer.addLayer(poplist[k]);
+            }
+
+            mymap.setView([30.505, -1], 2.35);
+            authorLayer.addTo(mymap);
+            authorClickValue = author;
+
+            museumList.sort(sortRule);
+
+            $('#recommendName').append('<h6>Neoclassicism: ' + author + 'Neoclassicism</h6>');
+
+            for (var n = 0; n < 10; n++) {
+
+                var z = museumList[n].latitude + ";" + museumList[n].lngtitude;
+                currentMarker = poplist[popflag.indexOf(museumList[n].latitude)];
+                console.log(museumList[n].latitude);
+
+                if (n === 0 && (museumList.length > 1 && (museumList[0].count > museumList[1].count || museumList[0].count > 1))) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-champion">' + museumList[n].count + '</span></p>');
+                }
+                else if (n === 1 && (museumList.length > 2 && (museumList[0].count > museumList[1].count || museumList[0].count > 1) && (museumList[1].count > museumList[2].count || museumList[1].count > 1))) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-sliver">' + museumList[n].count + '</span></p>');
+                }
+                else if (n === 2 && museumList.length >= 3 && museumList[2].count > 1) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-third">' + museumList[n].count + '</span></p>');
+                }
+                else {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge">' + museumList[n].count + '</span></p>');
+                }
+            }
+        });
+        recommendation.addTo(mymap);
+    }
+    <!-- the click function called when a author is clicked in the Impressionism panel -->
+    function impAuthorClick(author) {
+
+        impLayer.clearLayers();
+        authorLayer.clearLayers();
+
+        d3.json("Data.json", function (dataset) {
+
+                var lat, lng;
+                var poplist = [];
+                var popflag = [];
+                var urllist = [];
+
+                var museumList = [];
+                var m = 0;
+
+                for (var i = 0; i < dataset.length; i++) {
+
+                    if (dataset[i].properties.AUTHOR === author) {
+
+                        lat = dataset[i].geometry.coordinates[1];
+                        lng = dataset[i].geometry.coordinates[0];
+
+                        <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                        if (m !== 0) {
+
+                            if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
+
+                                mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                                museumList.push(mymuseum);
+                                m = m + 1;
+
+                            } else {
+                                museumList[m - 1].count = museumList[m - 1].count + 1;
+                            }
+                        }
+                        if (m === 0) {
+                            mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                            museumList.push(mymuseum);
+                            m = 1;
+                        }
+
+                        var f = popflag.indexOf(lat);
+                        var t, tt, hh;
+
+                        <!-- create corresponding marker under this click conditions and define the popup content-->
+                        if (f === -1) {
+
+                            t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                            tt = dataset[i].properties.URL;
+                            hh = "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+
+                            authorMarker = L.marker(new L.latLng(lat, lng), {icon: impIcon});
+                            authorMarker.on('click', clickZoom);
+                            authorMarker.bindTooltip(dataset[i].properties.LOCATION);
+                            authorMarker.bindPopup(hh, customOptions);
+
+                            popflag.push(lat);
+                            poplist.push(authorMarker);
+                            urllist.push(hh);
+
+                        } else {
+
+                            t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                            tt = dataset[i].properties.URL;
+                            urllist[f] = urllist[f] + "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+                            poplist[f].bindPopup(urllist[f], customOptions);
+
+                        }
+                    }
+                }
+                for (var k = 0; k < poplist.length; k++) {
+                    authorLayer.addLayer(poplist[k]);
+                }
+
+                mymap.setView([30.505, -1], 2.35);
+                authorLayer.addTo(mymap);
+                authorClickValue = author;
+
+                museumList.sort(sortRule);
+
+                $('#recommendName').append('<h6>Impressionism: ' + author + '</h6>');
+
+                for (var n = 0; n < 10; n++) {
+
+                    var z = museumList[n].latitude + ";" + museumList[n].lngtitude;
+
+                    if (n === 0 && (museumList.length > 1 && (museumList[0].count > museumList[1].count || museumList[0].count > 1))) {
+                        $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-champion">' + museumList[n].count + '</span></p>');
+                    }
+                    else if (n === 1 && (museumList.length > 2 && (museumList[0].count > museumList[1].count || museumList[0].count > 1) && (museumList[1].count > museumList[2].count || museumList[1].count > 1))) {
+                        $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-sliver">' + museumList[n].count + '</span></p>');
+                    }
+                    else if (n === 2 && museumList.length >= 3 && museumList[2].count > 1) {
+                        $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-third">' + museumList[n].count + '</span></p>');
+                    }
+                    else {
+                        $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge">' + museumList[n].count + '</span></p>');
+                    }
+                }
+            }
+        );
+        recommendation.addTo(mymap);
+    }
+    <!-- the click function called when a author is clicked in the Realism panel -->
+    function realAuthorClick(author) {
+
+        realLayer.clearLayers();
+
+        authorLayer.clearLayers();
+
+        d3.json("Data.json", function (dataset) {
+
+                var lat, lng;
+                var poplist = [];
+                var popflag = [];
+                var urllist = [];
+
+                var museumList = [];
+                var m = 0;
+
+                for (var i = 0; i < dataset.length; i++) {
+
+                    if (dataset[i].properties.AUTHOR === author) {
+
+                        lat = dataset[i].geometry.coordinates[1];
+                        lng = dataset[i].geometry.coordinates[0];
+
+                        <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                        if (m !== 0) {
+
+                            if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
+
+                                mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                                museumList.push(mymuseum);
+                                m = m + 1;
+
+                            } else {
+                                museumList[m - 1].count = museumList[m - 1].count + 1;
+                            }
+                        }
+                        if (m === 0) {
+                            mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                            museumList.push(mymuseum);
+                            m = 1;
+                        }
+
+                        var f = popflag.indexOf(lat);
+                        var t, tt, hh;
+
+                        <!-- create corresponding marker under this click conditions and define the popup content-->
+                        if (f === -1) {
+
+                            t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                            tt = dataset[i].properties.URL;
+                            hh = "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+
+                            authorMarker = L.marker(new L.latLng(lat, lng), {icon: realIcon});
+                            authorMarker.on('click', clickZoom);
+                            authorMarker.bindTooltip(dataset[i].properties.LOCATION);
+                            authorMarker.bindPopup(hh, customOptions);
+
+                            popflag.push(lat);
+                            poplist.push(authorMarker);
+                            urllist.push(hh);
+
+                        } else {
+
+                            t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                            tt = dataset[i].properties.URL;
+                            urllist[f] = urllist[f] + "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+                            poplist[f].bindPopup(urllist[f], customOptions);
+
+                        }
+
+                    }
+                }
+                for (var k = 0; k < poplist.length; k++) {
+                    authorLayer.addLayer(poplist[k]);
+                }
+
+                mymap.setView([30.505, -1], 2.35);
+                authorLayer.addTo(mymap);
+
+                museumList.sort(sortRule);
+
+                $('#recommendName').append('<h6>Realism: ' + author + '</h6>');
+                for (var n = 0; n < 10; n++) {
+
+                    var z = museumList[n].latitude + ";" + museumList[n].lngtitude;
+
+                    if (n === 0 && (museumList.length > 1 && (museumList[0].count > museumList[1].count || museumList[0].count > 1))) {
+                        $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-champion">' + museumList[n].count + '</span></p>');
+                    }
+                    else if (n === 1 && (museumList.length > 2 && (museumList[0].count > museumList[1].count || museumList[0].count > 1) && (museumList[1].count > museumList[2].count || museumList[1].count > 1))) {
+                        $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-sliver">' + museumList[n].count + '</span></p>');
+                    }
+                    else if (n === 2 && museumList.length >= 3 && museumList[2].count > 1) {
+                        $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-third">' + museumList[n].count + '</span></p>');
+                    }
+                    else {
+                        $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge">' + museumList[n].count + '</span></p>');
+                    }
+                }
+            }
+        );
+        recommendation.addTo(mymap);
+    }
+    <!-- the click function called when a author is clicked in the Romanticism panel -->
+    function romAuthorClick(author) {
+
+        romLayer.clearLayers();
+        authorLayer.clearLayers();
+
+        d3.json("Data.json", function (dataset) {
+
+                var lat, lng;
+                var poplist = [];
+                var popflag = [];
+                var urllist = [];
+
+                var museumList = [];
+                var m = 0;
+
+                for (var i = 0; i < dataset.length; i++) {
+
+                    if (dataset[i].properties.AUTHOR === author) {
+
+                        lat = dataset[i].geometry.coordinates[1];
+                        lng = dataset[i].geometry.coordinates[0];
+
+                        <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                        if (m !== 0) {
+
+                            if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
+
+                                mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                                museumList.push(mymuseum);
+                                m = m + 1;
+
+                            } else {
+                                museumList[m - 1].count = museumList[m - 1].count + 1;
+                            }
+                        }
+                        if (m === 0) {
+                            mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                            museumList.push(mymuseum);
+                            m = 1;
+                        }
+
+                        var f = popflag.indexOf(lat);
+                        var t, tt, hh;
+
+                        <!-- create corresponding marker under this click conditions and define the popup content-->
+                        if (f === -1) {
+
+                            t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                            tt = dataset[i].properties.URL;
+                            hh = "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+
+                            authorMarker = L.marker(new L.latLng(lat, lng), {icon: romIcon});
+                            authorMarker.on('click', clickZoom);
+                            authorMarker.bindTooltip(dataset[i].properties.LOCATION);
+                            authorMarker.bindPopup(hh, customOptions);
+
+                            popflag.push(lat);
+                            poplist.push(authorMarker);
+                            urllist.push(hh);
+
+                        } else {
+                            t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                            tt = dataset[i].properties.URL;
+                            urllist[f] = urllist[f] + "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+                            poplist[f].bindPopup(urllist[f], customOptions);
+                        }
+
+                    }
+                }
+                for (var k = 0; k < poplist.length; k++) {
+                    authorLayer.addLayer(poplist[k]);
+                }
+
+                mymap.setView([30.505, -1], 2.35);
+                authorLayer.addTo(mymap);
+                authorClickValue = author;
+
+                museumList.sort(sortRule);
+
+                $('#recommendName').append('<h6>Romanticism: ' + author + '</h6>');
+
+                for (var n = 0; n < 10; n++) {
+
+                    var z = museumList[n].latitude + ";" + museumList[n].lngtitude;
+
+                    //if(museumList[0].count>museumList[1].count && museumList[1].count>museumList[2].count){}
+                    //console.log(museumList[0].count>(museumList[1].count));
+                    if (n === 0 && (museumList.length > 1 && (museumList[0].count > museumList[1].count || museumList[0].count > 1))) {
+                        $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-champion">' + museumList[n].count + '</span></p>');
+                    }
+                    else if (n === 1 && (museumList.length > 2 && (museumList[0].count > museumList[1].count || museumList[0].count > 1) && (museumList[1].count > museumList[2].count || museumList[1].count > 1))) {
+                        $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-sliver">' + museumList[n].count + '</span></p>');
+                    }
+                    else if (n === 2 && museumList.length >= 3 && museumList[2].count > 1) {
+                        $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-third">' + museumList[n].count + '</span></p>');
+                    }
+                    else {
+                        $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge">' + museumList[n].count + '</span></p>');
+                    }
+                }
+            }
+        );
+        recommendation.addTo(mymap);
+    }
+
+    <!-- the content function called when the Neoclassicism panel shows-->
+    function neoClick() {
+
+        sliderControl.onRemove(mymap);
+
+        authorLayer.clearLayers();
+
+        neoLayer.clearLayers();
+        realLayer.clearLayers();
+        romLayer.clearLayers();
+        impLayer.clearLayers();
+
+        neoImg.style.opacity = 1.0;
+        impImg.style.opacity = 0.5;
+        realImg.style.opacity = 0.5;
+        romImg.style.opacity = 0.5;
+
+        var lat, lng;
+
+        d3.json("Data2.json", function (dataset) {
+
+            var poplist = [];
+            var popflag = [];
+            var urllist = [];
+
+            var museumList = [];
+            var m = 0;
+
+            for (var i = 0; i < dataset.length; i++) {
+
+                if (dataset[i].properties.Genre === "Neoclassicism") {
+
+                    lat = dataset[i].geometry.coordinates[1];
+                    lng = dataset[i].geometry.coordinates[0];
+
+                    <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                    if (m !== 0) {
+
+                        if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
+
+                            mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                            museumList.push(mymuseum);
+                            m = m + 1;
+
+                        } else {
+                            museumList[m - 1].count = museumList[m - 1].count + 1;
+                        }
+                    }
+                    if (m === 0) {
+                        mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                        museumList.push(mymuseum);
+                        m = 1;
+                    }
+
+                    neoMarker = L.marker(new L.latLng(lat, lng), {icon: neoIcon});
+                    neoMarker.on('click', clickZoom);
+
+                    var f = popflag.indexOf(lat);
+                    var t, tt;
+
+                    <!-- create corresponding marker under this click conditions and define the popup content-->
+                    if (f === -1) {
+
+                        t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                        tt = dataset[i].properties.URL;
+                        var hh = "" + dataset[i].properties.TITLE + "<br/><img title='Scroll For More' class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+
+                        neoMarker.bindPopup(hh, customOptions);
+                        neoMarker.bindTooltip(dataset[i].properties.LOCATION);
+                        neoMarker.on('click', function () {
+                            $(".collapse").collapse('hide');
+                        });
+
+                        popflag.push(lat);
+                        poplist.push(neoMarker);
+                        urllist.push(hh);
+
+                    } else {
+
+                        t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                        tt = dataset[i].properties.URL;
+
+                        urllist[f] = urllist[f] + "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+                        poplist[f].bindPopup(urllist[f], customOptions);
+                    }
+                }
+            }
+
+            for (var k = 0; k < poplist.length; k++) {
+                neoLayer.addLayer(poplist[k]);
+            }
+
+            mymap.setView([30.505, -1], 2.35);
+            neoLayer.addTo(mymap);
+
+            museumList.sort(sortRule);
+
+            $('#recommendName').append('<h6>Neoclassicism</h6>');
+
+            for (var n = 0; n < 10; n++) {
+
+                var z = museumList[n].latitude + ";" + museumList[n].lngtitude;
+
+                if (n === 0 && (museumList.length > 1 && (museumList[0].count > museumList[1].count || museumList[0].count > 1))) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-champion">' + museumList[n].count + '</span></p>');
+                }
+                else if (n === 1 && (museumList.length > 2 && (museumList[0].count > museumList[1].count || museumList[0].count > 1) && (museumList[1].count > museumList[2].count || museumList[1].count > 1))) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-sliver">' + museumList[n].count + '</span></p>');
+                }
+                else if (n === 2 && museumList.length >= 3 && museumList[2].count > 1) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-third">' + museumList[n].count + '</span></p>');
+                }
+                else {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge">' + museumList[n].count + '</span></p>');
+                }
+            }
+        });
+
+        recommendation.addTo(mymap);
+    }
+    <!-- the content function called when the Impressionism panel shows-->
+    function impClick() {
+
+        sliderControl.onRemove(mymap);
+
+        neoLayer.clearLayers();
+        realLayer.clearLayers();
+        romLayer.clearLayers();
+        impLayer.clearLayers();
+        authorLayer.clearLayers();
+
+        neoImg.style.opacity = 0.5;
+        impImg.style.opacity = 1.0;
+        realImg.style.opacity = 0.5;
+        romImg.style.opacity = 0.5;
+
+        var lat, lng;
+
+        d3.json("Data2.json", function (dataset) {
+
+            var poplist = [];
+            var popflag = [];
+            var urllist = [];
+
+            var museumList = [];
+            var m = 0;
+
+            for (var i = 0; i < dataset.length; i++) {
+
+                if (dataset[i].properties.Genre === "Impressionism") {
+
+                    lat = dataset[i].geometry.coordinates[1];
+                    lng = dataset[i].geometry.coordinates[0];
+
+                    impMarker = L.marker(new L.latLng(lat, lng), {icon: impIcon});
+                    impMarker.on('click', clickZoom);
+
+                    <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                    if (m !== 0) {
+
+                        if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
+
+                            mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                            museumList.push(mymuseum);
+                            m = m + 1;
+
+                        } else {
+                            museumList[m - 1].count = museumList[m - 1].count + 1;
+                        }
+                    }
+                    if (m === 0) {
+                        mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                        museumList.push(mymuseum);
+                        m = 1;
+                    }
+
+                    var f = popflag.indexOf(lat);
+                    var t, tt;
+
+                    <!-- create corresponding marker under this click conditions and define the popup content-->
+                    if (f === -1) {
+
+                        t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                        tt = dataset[i].properties.URL;
+                        var hh = "" + dataset[i].properties.TITLE + "<br/><img title='Scroll For More' class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+
+                        impMarker.bindPopup(hh, customOptions);
+                        impMarker.bindTooltip(dataset[i].properties.LOCATION);
+                        impMarker.on('click', function () {
+                            $(".collapse").collapse('hide');
+                        });
+
+                        popflag.push(lat);
+                        poplist.push(impMarker);
+                        urllist.push(hh);
+
+                    } else {
+
+                        t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                        tt = dataset[i].properties.URL;
+
+                        urllist[f] = urllist[f] + "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+                        poplist[f].bindPopup(urllist[f], customOptions);
+                    }
+                }
+            }
+
+            for (var k = 0; k < poplist.length; k++) {
+                impLayer.addLayer(poplist[k]);
+            }
+            mymap.setView([30.505, -1], 2.35);
+            impLayer.addTo(mymap);
+
+            museumList.sort(sortRule);
+
+            $('#recommendName').append('<h6>Impressionism</h6>');
+
+            for (var n = 0; n < 10; n++) {
+
+                var z = museumList[n].latitude + ";" + museumList[n].lngtitude;
+
+                if (n === 0 && (museumList.length > 1 && (museumList[0].count > museumList[1].count || museumList[0].count > 1))) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-champion">' + museumList[n].count + '</span></p>');
+                }
+                else if (n === 1 && (museumList.length > 2 && (museumList[0].count > museumList[1].count || museumList[0].count > 1) && (museumList[1].count > museumList[2].count || museumList[1].count > 1))) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-sliver">' + museumList[n].count + '</span></p>');
+                }
+                else if (n === 2 && museumList.length >= 3 && museumList[2].count > 1) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-third">' + museumList[n].count + '</span></p>');
+                }
+                else {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge">' + museumList[n].count + '</span></p>');
+                }
+            }
+        });
+        recommendation.addTo(mymap);
+    }
+    <!-- the content function called when the Realism panel shows-->
+    function realClick() {
+
+        sliderControl.onRemove(mymap);
+
+        neoLayer.clearLayers();
+        realLayer.clearLayers();
+        romLayer.clearLayers();
+        impLayer.clearLayers();
+        authorLayer.clearLayers();
+
+        neoImg.style.opacity = 0.5;
+        impImg.style.opacity = 0.5;
+        realImg.style.opacity = 1.0;
+        romImg.style.opacity = 0.5;
+
+        var lat, lng;
+
+        d3.json("Data2.json", function (dataset) {
+
+            var poplist = [];
+            var popflag = [];
+            var urllist = [];
+
+            var museumList = [];
+            var m = 0;
+
+            for (var i = 0; i < dataset.length; i++) {
+
+                if (dataset[i].properties.Genre === "Realism") {
+
+                    lat = dataset[i].geometry.coordinates[1];
+                    lng = dataset[i].geometry.coordinates[0];
+
+                    <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                    if (m !== 0) {
+
+                        if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
+
+                            mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                            museumList.push(mymuseum);
+                            m = m + 1;
+
+                        } else {
+                            museumList[m - 1].count = museumList[m - 1].count + 1;
+                        }
+                    }
+                    if (m === 0) {
+                        mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                        museumList.push(mymuseum);
+                        m = 1;
+                    }
+
+                    realMarker = L.marker(new L.latLng(lat, lng), {icon: realIcon});
+                    realMarker.on('click', clickZoom);
+
+                    var f = popflag.indexOf(lat);
+                    var t, tt;
+
+                    <!-- create corresponding marker under this click conditions and define the popup content-->
+                    if (f === -1) {
+
+                        t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                        tt = dataset[i].properties.URL;
+                        var hh = "" + dataset[i].properties.TITLE + "<br/><img title='Scroll For More' class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+
+                        realMarker.bindPopup(hh, customOptions);
+                        realMarker.bindTooltip(dataset[i].properties.LOCATION);
+                        realMarker.on('click', function () {
+                            $(".collapse").collapse('hide');
+                        });
+
+                        popflag.push(lat);
+                        poplist.push(realMarker);
+                        urllist.push(hh);
+
+                    } else {
+
+                        t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                        tt = dataset[i].properties.URL;
+
+                        urllist[f] = urllist[f] + "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+                        poplist[f].bindPopup(urllist[f], customOptions);
+                    }
+                }
+            }
+
+            for (var k = 0; k < poplist.length; k++) {
+                realLayer.addLayer(poplist[k]);
+            }
+            mymap.setView([30.505, -1], 2.35);
+            realLayer.addTo(mymap);
+            museumList.sort(sortRule);
+            $('#recommendName').append('<h6>Realism</h6>');
+            for (var n = 0; n < 10; n++) {
+
+                var z = museumList[n].latitude + ";" + museumList[n].lngtitude;
+
+                if (n === 0 && (museumList.length > 1 && (museumList[0].count > museumList[1].count || museumList[0].count > 1))) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-champion">' + museumList[n].count + '</span></p>');
+                }
+                else if (n === 1 && (museumList.length > 2 && (museumList[0].count > museumList[1].count || museumList[0].count > 1) && (museumList[1].count > museumList[2].count || museumList[1].count > 1))) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-sliver">' + museumList[n].count + '</span></p>');
+                }
+                else if (n === 2 && museumList.length >= 3 && museumList[2].count > 1) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-third">' + museumList[n].count + '</span></p>');
+                }
+                else {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge">' + museumList[n].count + '</span></p>');
+                }
+            }
+        });
+        recommendation.addTo(mymap);
+    }
+    <!-- the content function called when the Romanticism panel shows-->
+    function romClick() {
+
+        sliderControl.onRemove(mymap);
+
+        neoLayer.clearLayers();
+        realLayer.clearLayers();
+        romLayer.clearLayers();
+        impLayer.clearLayers();
+        authorLayer.clearLayers();
+
+        neoImg.style.opacity = 0.5;
+        impImg.style.opacity = 0.5;
+        realImg.style.opacity = 0.5;
+        romImg.style.opacity = 1.0;
+
+        var lat, lng;
+
+        d3.json("Data2.json", function (dataset) {
+
+            var poplist = [];
+            var popflag = [];
+            var urllist = [];
+
+            var museumList = [];
+            var m = 0;
+
+            for (var i = 0; i < dataset.length; i++) {
+
+                if (dataset[i].properties.Genre === "Romanticism") {
+
+                    lat = dataset[i].geometry.coordinates[1];
+                    lng = dataset[i].geometry.coordinates[0];
+
+                    <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                    if (m !== 0) {
+
+                        if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
+
+                            mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                            museumList.push(mymuseum);
+                            m = m + 1;
+
+                        } else {
+                            museumList[m - 1].count = museumList[m - 1].count + 1;
+                        }
+                    }
+                    if (m === 0) {
+                        mymuseum = new Museum(dataset[i].properties.LOCATION, 1, lat, lng);
+                        museumList.push(mymuseum);
+                        m = 1;
+                    }
+
+                    romMarker = L.marker(new L.latLng(lat, lng), {icon: romIcon});
+                    romMarker.on('click', clickZoom);
+
+                    var f = popflag.indexOf(lat);
+                    var t, tt;
+
+                    <!-- create corresponding marker under this click conditions and define the popup content-->
+                    if (f === -1) {
+
+                        t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                        tt = dataset[i].properties.URL;
+                        var hh = "" + dataset[i].properties.TITLE + "<br/><img title='Scroll For More' class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/></br><br/>";
+
+                        romMarker.bindPopup(hh, customOptions);
+                        romMarker.bindTooltip(dataset[i].properties.LOCATION);
+                        romMarker.on('click', function () {
+                            $(".collapse").collapse('hide');
+                        });
+
+                        popflag.push(lat);
+                        poplist.push(romMarker);
+                        urllist.push(hh);
+
+                    } else {
+
+                        t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
+                        tt = dataset[i].properties.URL;
+
+                        urllist[f] = urllist[f] + "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
+                        poplist[f].bindPopup(urllist[f], customOptions);
+                    }
+                }
+            }
+
+            for (var k = 0; k < poplist.length; k++) {
+                romLayer.addLayer(poplist[k]);
+            }
+            mymap.setView([30.505, -1], 2.35);
+            romLayer.addTo(mymap);
+
+            museumList.sort(sortRule);
+            $('#recommendName').append('<h6>Romanticism</h6>');
+
+            for (var n = 0; n < 10; n++) {
+
+                var z = museumList[n].latitude + ";" + museumList[n].lngtitude;
+
+                if (n === 0 && (museumList.length > 1 && (museumList[0].count > museumList[1].count || museumList[0].count > 1))) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-champion">' + museumList[n].count + '</span></p>');
+                }
+                else if (n === 1 && (museumList.length > 2 && (museumList[0].count > museumList[1].count || museumList[0].count > 1) && (museumList[1].count > museumList[2].count || museumList[1].count > 1))) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-sliver">' + museumList[n].count + '</span></p>');
+                }
+                else if (n === 2 && museumList.length >= 3 && museumList[2].count > 1) {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge badget-third">' + museumList[n].count + '</span></p>');
+                }
+                else {
+                    $('#recommendationL').append('<p title="' + z + '" onclick="clickZoom2(this.title)">' + museumList[n].name + ' <span class="badge">' + museumList[n].count + '</span></p>');
+                }
+            }
+        });
+        recommendation.addTo(mymap);
+    }
+</script>
+</body>
+</html>
