@@ -1,3 +1,4 @@
+<!-- This is a project of Hanbing Zhang and Jingyan Zhang -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,7 +38,8 @@
 <div id="sidebar" class="sidebar collapsed">
     <div class="sidebar-tabs">
 
-        <!-- Sideabr tab list settings -->
+        <!-- Sideabr tab list settings, each tab item is a li object, wrapping a corresponding img -->
+        <!-- the <a></a> tag link to the panel  -->
         <ul role="tablist">
             <li id="searchLi" onclick="searchClick()"><a href="#authorSearch" role="tab">
                 <img id="searchGlass" src="css/images/search.png" style="height: 25px;width:25px"></a>
@@ -69,12 +71,14 @@
                     <span class="glyphicon glyphicon-remove"></span></span>Author Search
             </h1>
             <div style="margin-top: 20px;padding-left: 20px;">
+                 <!-- Author Search Form  -->
                 <form class="form-inline">
                     <div class="input-group" style="padding-bottom: 10px;width: 210px;">
                         <input type="text" class="form-control" id="authorName" placeholder="Author Name">
                     </div>
                 </form>
             </div>
+             <!--Search Result List -->
             <div id="searchResult" style="padding-left: 20px;height:700px;overflow-y: scroll"></div>
         </div>
 
@@ -84,7 +88,9 @@
                 <span class="glyphicon glyphicon-remove"></span></span><img src="css/images/neopp.jpg"
                                                                             style="height: 70px;width:170px">
             </h1>
+             <!--  -->
             <div class="tabbable tabs-left" style="height:700px;overflow-y: scroll;">
+                 <!-- tags for A ~ Z -->
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#nA" data-toggle="tab">A</a></li>
                     <li><a href="#nB" data-toggle="tab">B</a></li>
@@ -108,6 +114,7 @@
                     <li><a href="#nV" data-toggle="tab">V</a></li>
                     <li><a href="#nZ" data-toggle="tab">Z</a></li>
                 </ul>
+                 <!-- Author name list using id to link to different tag repectively-->
                 <div id="neoList" class="tab-content">
                     <div class="tab-pane fade in active" id="nA">
                         <ul class="authorUl">
@@ -303,6 +310,7 @@
                                                                             style="height: 70px;width:170px">
             </h1>
             <div class="tabbable tabs-left" style="height:700px;overflow-y: scroll;">
+                 <!-- tags for A ~ Z -->
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#iA" data-toggle="tab">A</a></li>
                     <li><a href="#iB" data-toggle="tab">B</a></li>
@@ -327,6 +335,7 @@
                     <li><a href="#iW" data-toggle="tab">W</a></li>
                     <li><a href="#iZ" data-toggle="tab">Z</a></li>
                 </ul>
+                  <!-- Author name list using id to link to different tag repectively-->
                 <div id="impList" class="tab-content" style="overflow-y: auto">
                     <div class="tab-pane fade in active" id="iA">
                         <ul class="authorUl">
@@ -588,6 +597,7 @@
                 <span class="glyphicon glyphicon-remove"></span></span><img src="css/images/realpp.jpg" style="height: 70px;width:170px">
             </h1>
             <div class="tabbable tabs-left" style="height:700px;overflow-y: scroll;">
+                 <!-- tags for A ~ Z -->
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#reA" data-toggle="tab">A</a></li>
                     <li><a href="#reB" data-toggle="tab">B</a></li>
@@ -612,6 +622,7 @@
                     <li><a href="#reW" data-toggle="tab">W</a></li>
                     <li><a href="#reZ" data-toggle="tab">Z</a></li>
                 </ul>
+                  <!-- Author name list using id to link to different tag repectively-->
                 <div id="realList" class="tab-content" style="overflow-y: auto">
                     <div class="tab-pane fade in active" id="reA">
                         <ul class="authorUl">
@@ -897,6 +908,7 @@
                                                                             style="height: 70px;width:170px">
             </h1>
             <div class="tabbable tabs-left" style="height:700px;overflow-y: scroll;">
+                 <!-- tags for A ~ Z -->
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#roA" data-toggle="tab">A</a></li>
                     <li><a href="#roB" data-toggle="tab">B</a></li>
@@ -921,6 +933,7 @@
                     <li><a href="#roV" data-toggle="tab">V</a></li>
                     <li><a href="#roW" data-toggle="tab">W</a></li>
                 </ul>
+                  <!-- Author name list using id to link to different tag repectively-->
                 <div id="romList" class="tab-content" style="overflow-y: auto">
                     <div class="tab-pane fade in active" id="roA">
                         <ul class="authorUl">
@@ -1249,10 +1262,10 @@
     </div>
 </div>
 
-<!-- Create Map -->
+<!-- Create Map container-->
 <div id="basicMap" class="sidebar-map" style="height: 100vh"></div>
 <script>
-
+  /* Setting bounds of map in case user drag the map into Antarctica   */
     var corner1 = L.latLng(80.712, 360),
         corner2 = L.latLng(-50.774, -360),
         bounds = L.latLngBounds(corner1, corner2);
@@ -1263,6 +1276,7 @@
         trackResize: true
     }).setView([40.505, 15], 2.35);
 
+    /* customize the may style*/
     L.tileLayer('https://api.mapbox.com/styles/v1/jingyan/cj51kol9z1fnm2rmy82k24hqm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamluZ3lhbiIsImEiOiJjajN5dDU5bXUwMDhwMzNwanBxeGZoZDZrIn0.-5_CMLp6GDZYhe-7Ra_w_g', {
         maxZoom: 16,
         minZoom: 2,
@@ -1272,15 +1286,15 @@
         id: 'mapbox.streets'
     }).addTo(mymap);
 
-    <!-- define variable sidebar -->
+    /* define variable sidebar */
     var sidebar = L.control.sidebar('sidebar').addTo(mymap);
 
-    <!-- define variable timeline -->
+    /* define variable timeline */
     var sliderControl = L.control.sliderControl();
     var testlayer = L.geoJson();
 
 
-    <!-- respectively customize the characteristics marker of Neoclassicism, Impressionism, Realism, Romanticism -->
+    /*  respectively customize the characteristics marker of Neoclassicism, Impressionism, Realism, Romanticism */
     var neoIcon = L.icon({
         iconUrl: "css/images/neo.png",
         iconSize: [30, 35],
@@ -1302,7 +1316,7 @@
         iconAnchor: [12, 41]
     });
 
-    <!-- respectively define cluster marker groups of  Neoclassicism, Impressionism, Realism, Romanticism -->
+    /*  respectively define cluster marker groups of  Neoclassicism, Impressionism, Realism, Romanticism */
     var neoLayer = L.markerClusterGroup({showCoverageOnHover: false});
     var impLayer = L.markerClusterGroup({showCoverageOnHover: false});
     var realLayer = L.markerClusterGroup({showCoverageOnHover: false});
@@ -1315,7 +1329,7 @@
 
     var currentMarker;
 
-    <!-- define authormaker to be used when a partiular author name is clicked in the 5 panels -->
+    /*  define authormaker to be used when a partiular author name is clicked in the 5 panels */
     var authorLayer = L.markerClusterGroup({showCoverageOnHover: false});
     var authorMarker;
     var authorClickValue;
@@ -1330,7 +1344,7 @@
     realImg.style.opacity = 0.5;
     romImg.style.opacity = 0.5;
 
-    <!-- define detail window -->
+    /*  define detail window */
     var win;
 
     var customOptions = {
@@ -1341,14 +1355,11 @@
     };
 
     function clickZoom(e) {
-
         mymap.setView(e.target.getLatLng(), mymap.getZoom());
-
     }
     function clickZoom2(z) {
 
         var arr2, mlat, mlng;
-
         arr2 = z.split(";");
         mlat = arr2[0];
         mlng = arr2[1];
@@ -1381,15 +1392,20 @@
         });
     }
 
-    <!-- define Author Search panel interaction and search algorithm -->
+    /*  define Author Search panel interaction and search algorithm */
     $('#authorName').on('keyup', function () {
         authorSearch();
     });
+    
+    /* the author search algorithm*/
     function authorSearch() {
 
         sliderControl.onRemove(mymap);
+        
+        /* get search keyword */
         var searchWord = document.getElementById('authorName').value;
 
+        /* read data */
         $.getJSON("authorData.json", function (json) {
 
             var options = {
@@ -1404,31 +1420,26 @@
                 ]
             };
             var fuse = new Fuse(json, options);
-
+            
+            /* get search result */
             var result = fuse.search(searchWord);
-
             var data = [];
-
             data.push('<ul style="list-style: none ">');
-
+             /* clean the result and put the result into the 'search result container' */
             for (var i = 0; i < result.length; i++) {
 
                 if (i === 0) {
-
                     data.push('<li title="' + result[i].properties.Genre + '">' + result[i].properties.AUTHOR + '</li>');
                 }
-
                 if (i !== 0 && result[i].properties.AUTHOR !== result[i - 1].properties.AUTHOR) {
-
                     data.push('<li title="' + result[i].properties.Genre + '">' + result[i].properties.AUTHOR + '</li>');
-
                 }
             }
 
             data.push('</ul>');
-
             document.getElementById('searchResult').innerHTML = data.join('');
 
+            /* append each list item a click function to call '**AuthorClick' function */
             d3.select("#searchResult").selectAll("li").on("click", function () {
 
                 var author = d3.select(this).text();
@@ -1448,16 +1459,14 @@
         });
     }
     function searchClick() {
-
         sliderControl.onRemove(mymap);
         document.getElementById('searchGlass').src = "css/images/search2.png"
     }
 
+    /* when mouse leave the panel, it close automatically */
     $('.sidebar-content').mouseleave(function () {
-
         $('.sidebar-close').click();
         document.getElementById('searchGlass').src = "css/images/search.png"
-
     });
 
     $(function () {
@@ -1467,7 +1476,7 @@
         $("[data-toggle='popover']").popover();
     });
 
-    <!-- define recommdation list -->
+    /*  define recommdation list */
     var recommendation = L.control.custom({
         position: 'bottomleft',
         content: '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"><span><img src="css/images/museum.png" style="height: 20px;margin-bottom:3px;"></span> Collections</h4><div id ="recommendName"></div></div><div id="recommendationL" class="panel-body"></div></div>',
@@ -1486,7 +1495,7 @@
 
     });
 
-    <!-- define resetView and show timeline buttons and their click function  -->
+    /*  define resetView click function  */
     L.control.custom({
         position: 'topleft',
         content: '<button type="button" class="btn btn-default" data-trigger="hover" data-toggle="tooltip" data-placement="right" id="resetView" title="Reset View" style="padding: 4px 8px;border: hidden">' +
@@ -1499,8 +1508,9 @@
     }).addTo(mymap);
     $('#resetView').click(function () {
         mymap.setView([40.505, -1], 2.35);
-
     });
+    
+    /* define show timeline buttons and click function */
     L.control.custom({
         position: 'topleft',
         content: '<button type="button" class="btn btn-default" data-trigger="hover" data-toggle="tooltip" data-placement="right" id="showSlider" title="Show Timeline" style="padding: 4px 8px;border: hidden">' +
@@ -1512,7 +1522,8 @@
         }
     }).addTo(mymap);
     $('#showSlider').click(function () {
-
+        
+        /* define warning dialog when switching between genre/author selection and timeline */
         var d = dialog({
             title: 'Warning',
             content: 'Showing the timeline will close museum recommendation and lose the current selection of genre and author. Are you sure to leave the current status and go to the timeline interface?',
@@ -1537,8 +1548,6 @@
 
                 mymap.addControl(sliderControl);
                 sliderControl.startSlider();
-
-
             },
             cancelValue: 'Cancel',
             cancel: function () {
@@ -1555,7 +1564,7 @@
         }
     });
 
-    <!-- add listeners to all author names in the 4 genres panels -->
+    /*  add listeners to all author names in the 4 genres panels */
     d3.select("#neoList").selectAll("li").on("click", function () {
 
         var author = d3.select(this).text();
@@ -1581,11 +1590,10 @@
 
     });
 
-    <!-- define and initialise the timeline -->
+    /*  define and initialise the timeline */
     $.getJSON("wellData.json", function (json) {
 
         testlayer = L.geoJson(json, {
-
             pointToLayer: function (feature, latlng) {
 
                 switch (feature.properties.Genre) {
@@ -1600,7 +1608,8 @@
                 }
             }
         });
-
+        
+        /* initialise the timeline */
         sliderControl = L.control.sliderControl({
             position: "bottomleft",
             layer: testlayer,
@@ -1611,7 +1620,8 @@
         sliderControl.startSlider();
 
     });
-
+    
+    /* customize museum object class*/
     function Museum(name, count, latitude, lngtitude) {
 
         this.name = name;
@@ -1624,7 +1634,7 @@
         return b.count - a.count;
     }
 
-    <!-- customize the detail window content -->
+    /*  customize the detail window content */
     function paintingPopup(url, detail) {
 
         var arr, author, bd, date, plocation, genre, technique, ptitle;
@@ -1637,7 +1647,8 @@
         genre = '' + arr[4];
         technique = ' ' + arr[5];
         ptitle = arr[6];
-
+        
+        /* bind detail information to the detail window*/
         win = L.control.window(mymap, {title: ptitle, maxWidth: 900, modal: true})
             .content('<img src="' + url + '" style="max-width: 740px"><p></p>' +
                 '<p class="myP"><strong>Author: </strong>' + author + '</p>' +
@@ -1651,13 +1662,14 @@
             });
     }
 
-    <!-- the click function called when a author is clicked in the Neoclassicism panel -->
+   /*  the click function called when a author is clicked in the Neoclassicism panel */
     function neoAuthorClick(author) {
 
-
+        /* clear all markers presenting on the map*/
         neoLayer.clearLayers();
         authorLayer.clearLayers();
-
+        
+        /* read data from Data.json */
         d3.json("Data.json", function (dataset) {
 
             var lat, lng;
@@ -1668,7 +1680,6 @@
             var museumList = [];
             var m = 0;
 
-
             for (var i = 0; i < dataset.length; i++) {
 
                 if (dataset[i].properties.AUTHOR === author) {
@@ -1676,8 +1687,7 @@
                     lat = dataset[i].geometry.coordinates[1];
                     lng = dataset[i].geometry.coordinates[0];
 
-
-                    <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                    /*  create recommendation collection list content, count the current satisfiable museum name and sort the museum list*/
                     if (m !== 0) {
 
                         if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
@@ -1699,9 +1709,10 @@
                     var f = popflag.indexOf(lat);
                     var t, tt, hh;
 
-                    <!-- create corresponding marker under this click conditions and define the popup content-->
+                    /*  create corresponding marker under this click conditions and define the popup content*/
                     if (f === -1) {
 
+                         /* read and store all information related one painting */
                         t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                         tt = dataset[i].properties.URL;
                         hh = "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
@@ -1711,11 +1722,13 @@
                         authorMarker.bindTooltip(dataset[i].properties.LOCATION);
                         authorMarker.bindPopup(hh, customOptions);
 
+                         /* add new data to the marker list(poplist)*/
                         popflag.push(lat);
                         poplist.push(authorMarker);
                         urllist.push(hh);
 
                     } else {
+                        /* the same as above */
                         t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                         tt = dataset[i].properties.URL;
 
@@ -1724,6 +1737,7 @@
                     }
                 }
             }
+              /* add new object to the layer */
             for (var k = 0; k < poplist.length; k++) {
                 authorLayer.addLayer(poplist[k]);
             }
@@ -1735,6 +1749,9 @@
             museumList.sort(sortRule);
 
             $('#recommendName').append('<h6>Neoclassicism: ' + author + 'Neoclassicism</h6>');
+            
+            /* add museum recommemdation list content and append click function 
+            to locate and show popup of the particular museum */
 
             for (var n = 0; n < 10; n++) {
 
@@ -1758,12 +1775,14 @@
         });
         recommendation.addTo(mymap);
     }
-    <!-- the click function called when a author is clicked in the Impressionism panel -->
+/* the click function called when a author is clicked in the Impressionism panel */
     function impAuthorClick(author) {
 
+        /* clear all markers presenting on the map*/
         impLayer.clearLayers();
         authorLayer.clearLayers();
 
+        /* read data from Data.json */
         d3.json("Data.json", function (dataset) {
 
                 var lat, lng;
@@ -1781,7 +1800,7 @@
                         lat = dataset[i].geometry.coordinates[1];
                         lng = dataset[i].geometry.coordinates[0];
 
-                        <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                        /* create recommendation collection list content, count the current satisfiable museum name and sort the museum list*/
                         if (m !== 0) {
 
                             if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
@@ -1803,9 +1822,10 @@
                         var f = popflag.indexOf(lat);
                         var t, tt, hh;
 
-                        <!-- create corresponding marker under this click conditions and define the popup content-->
+                        /*  create corresponding marker under this click conditions and define the popup content*/
                         if (f === -1) {
 
+                              /* read and store all information related one painting */
                             t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                             tt = dataset[i].properties.URL;
                             hh = "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
@@ -1815,12 +1835,14 @@
                             authorMarker.bindTooltip(dataset[i].properties.LOCATION);
                             authorMarker.bindPopup(hh, customOptions);
 
+                             /* add new data to the marker list(poplist)*/
                             popflag.push(lat);
                             poplist.push(authorMarker);
                             urllist.push(hh);
 
                         } else {
-
+                            
+                            /* the same as above */
                             t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                             tt = dataset[i].properties.URL;
                             urllist[f] = urllist[f] + "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
@@ -1829,6 +1851,8 @@
                         }
                     }
                 }
+            
+              /* add new object to the layer */
                 for (var k = 0; k < poplist.length; k++) {
                     authorLayer.addLayer(poplist[k]);
                 }
@@ -1840,6 +1864,9 @@
                 museumList.sort(sortRule);
 
                 $('#recommendName').append('<h6>Impressionism: ' + author + '</h6>');
+                
+                /* add museum recommemdation list content and append click function 
+            to locate and show popup of the particular museum*/
 
                 for (var n = 0; n < 10; n++) {
 
@@ -1862,13 +1889,14 @@
         );
         recommendation.addTo(mymap);
     }
-    <!-- the click function called when a author is clicked in the Realism panel -->
+   /*  the click function called when a author is clicked in the Realism panel */
     function realAuthorClick(author) {
-
+        
+        /* clear all markers presenting on the map*/
         realLayer.clearLayers();
-
         authorLayer.clearLayers();
-
+        
+        /* read data from Data.json */
         d3.json("Data.json", function (dataset) {
 
                 var lat, lng;
@@ -1886,7 +1914,7 @@
                         lat = dataset[i].geometry.coordinates[1];
                         lng = dataset[i].geometry.coordinates[0];
 
-                        <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                        /* create recommendation collection list content, count the current satisfiable museum name and sort the museum list*/
                         if (m !== 0) {
 
                             if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
@@ -1908,9 +1936,10 @@
                         var f = popflag.indexOf(lat);
                         var t, tt, hh;
 
-                        <!-- create corresponding marker under this click conditions and define the popup content-->
+                      /*  create corresponding marker under this click conditions and define the popup content*/
                         if (f === -1) {
 
+                              /* read and store all information related one painting */
                             t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                             tt = dataset[i].properties.URL;
                             hh = "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
@@ -1920,12 +1949,14 @@
                             authorMarker.bindTooltip(dataset[i].properties.LOCATION);
                             authorMarker.bindPopup(hh, customOptions);
 
+                             /* add new data to the marker list(poplist)*/
                             popflag.push(lat);
                             poplist.push(authorMarker);
                             urllist.push(hh);
 
                         } else {
-
+                            
+                            /* the same as above */
                             t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                             tt = dataset[i].properties.URL;
                             urllist[f] = urllist[f] + "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
@@ -1935,6 +1966,7 @@
 
                     }
                 }
+              /* add new object to the layer */
                 for (var k = 0; k < poplist.length; k++) {
                     authorLayer.addLayer(poplist[k]);
                 }
@@ -1945,6 +1977,9 @@
                 museumList.sort(sortRule);
 
                 $('#recommendName').append('<h6>Realism: ' + author + '</h6>');
+                
+                /* add museum recommemdation list content and append click function 
+            to locate and show popup of the particular museum*/
                 for (var n = 0; n < 10; n++) {
 
                     var z = museumList[n].latitude + ";" + museumList[n].lngtitude;
@@ -1966,12 +2001,15 @@
         );
         recommendation.addTo(mymap);
     }
-    <!-- the click function called when a author is clicked in the Romanticism panel -->
+    
+    /*  the click function called when a author is clicked in the Romanticism panel */
     function romAuthorClick(author) {
-
+        
+        /* clear all markers presenting on the map*/
         romLayer.clearLayers();
         authorLayer.clearLayers();
-
+        
+        /* read data from Data.json*/
         d3.json("Data.json", function (dataset) {
 
                 var lat, lng;
@@ -1989,7 +2027,7 @@
                         lat = dataset[i].geometry.coordinates[1];
                         lng = dataset[i].geometry.coordinates[0];
 
-                        <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                        /* create recommendation collection list content, count the current satisfiable museum name and sort the museum list*/
                         if (m !== 0) {
 
                             if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
@@ -2011,9 +2049,9 @@
                         var f = popflag.indexOf(lat);
                         var t, tt, hh;
 
-                        <!-- create corresponding marker under this click conditions and define the popup content-->
+                        /* create corresponding marker under this click conditions and define the popup content*/
                         if (f === -1) {
-
+                            /* read and store all information related one painting */
                             t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                             tt = dataset[i].properties.URL;
                             hh = "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
@@ -2023,11 +2061,13 @@
                             authorMarker.bindTooltip(dataset[i].properties.LOCATION);
                             authorMarker.bindPopup(hh, customOptions);
 
+                             /* add new data to the marker list(poplist)*/
                             popflag.push(lat);
                             poplist.push(authorMarker);
                             urllist.push(hh);
 
                         } else {
+                            /* the same as above */
                             t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                             tt = dataset[i].properties.URL;
                             urllist[f] = urllist[f] + "" + dataset[i].properties.TITLE + "<br/><img class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
@@ -2036,6 +2076,7 @@
 
                     }
                 }
+                  /* add new object to the layer */
                 for (var k = 0; k < poplist.length; k++) {
                     authorLayer.addLayer(poplist[k]);
                 }
@@ -2047,6 +2088,9 @@
                 museumList.sort(sortRule);
 
                 $('#recommendName').append('<h6>Romanticism: ' + author + '</h6>');
+                
+                /* add museum recommemdation list content and append click function 
+            to locate and show popup of the particular museum*/
 
                 for (var n = 0; n < 10; n++) {
 
@@ -2072,11 +2116,11 @@
         recommendation.addTo(mymap);
     }
 
-    <!-- the content function called when the Neoclassicism panel shows-->
+   /*  the content function called when the Neoclassicism panel shows */
     function neoClick() {
 
         sliderControl.onRemove(mymap);
-
+        /* clear all markers presenting on the map*/
         authorLayer.clearLayers();
 
         neoLayer.clearLayers();
@@ -2090,7 +2134,7 @@
         romImg.style.opacity = 0.5;
 
         var lat, lng;
-
+        /* read data from Data2.json, the main data source*/
         d3.json("Data2.json", function (dataset) {
 
             var poplist = [];
@@ -2107,7 +2151,7 @@
                     lat = dataset[i].geometry.coordinates[1];
                     lng = dataset[i].geometry.coordinates[0];
 
-                    <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                    /*  create recommendation collection list content, count the current satisfiable museum name and sort the museum list */
                     if (m !== 0) {
 
                         if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
@@ -2125,16 +2169,16 @@
                         museumList.push(mymuseum);
                         m = 1;
                     }
-
+                    /* create marker object*/
                     neoMarker = L.marker(new L.latLng(lat, lng), {icon: neoIcon});
                     neoMarker.on('click', clickZoom);
 
                     var f = popflag.indexOf(lat);
                     var t, tt;
 
-                    <!-- create corresponding marker under this click conditions and define the popup content-->
+                   /*  create corresponding marker under this click conditions and define the popup content*/
                     if (f === -1) {
-
+                          /* read and store all information related one painting */
                         t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                         tt = dataset[i].properties.URL;
                         var hh = "" + dataset[i].properties.TITLE + "<br/><img title='Scroll For More' class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
@@ -2144,13 +2188,13 @@
                         neoMarker.on('click', function () {
                             $(".collapse").collapse('hide');
                         });
-
+                         /* add new data to the marker list(poplist)*/
                         popflag.push(lat);
                         poplist.push(neoMarker);
                         urllist.push(hh);
 
                     } else {
-
+                        /* the same as above */
                         t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                         tt = dataset[i].properties.URL;
 
@@ -2159,7 +2203,7 @@
                     }
                 }
             }
-
+              /* add new object to the layer */
             for (var k = 0; k < poplist.length; k++) {
                 neoLayer.addLayer(poplist[k]);
             }
@@ -2170,6 +2214,9 @@
             museumList.sort(sortRule);
 
             $('#recommendName').append('<h6>Neoclassicism</h6>');
+            
+            /* add museum recommemdation list content and append click function 
+            to locate and show popup of the particular museum*/
 
             for (var n = 0; n < 10; n++) {
 
@@ -2192,11 +2239,11 @@
 
         recommendation.addTo(mymap);
     }
-    <!-- the content function called when the Impressionism panel shows-->
+   /*  the content function called when the Impressionism panel shows*/
     function impClick() {
 
         sliderControl.onRemove(mymap);
-
+        /* clear all markers presenting on the map*/
         neoLayer.clearLayers();
         realLayer.clearLayers();
         romLayer.clearLayers();
@@ -2209,7 +2256,7 @@
         romImg.style.opacity = 0.5;
 
         var lat, lng;
-
+        /* read data from Data2.json, the main data source*/
         d3.json("Data2.json", function (dataset) {
 
             var poplist = [];
@@ -2225,11 +2272,11 @@
 
                     lat = dataset[i].geometry.coordinates[1];
                     lng = dataset[i].geometry.coordinates[0];
-
+                    /* create marker object*/
                     impMarker = L.marker(new L.latLng(lat, lng), {icon: impIcon});
                     impMarker.on('click', clickZoom);
 
-                    <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                    /* create recommendation collection list content, count the current satisfiable museum name and sort the museum list*/
                     if (m !== 0) {
 
                         if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
@@ -2251,8 +2298,9 @@
                     var f = popflag.indexOf(lat);
                     var t, tt;
 
-                    <!-- create corresponding marker under this click conditions and define the popup content-->
+                    /*  create corresponding marker under this click conditions and define the popup content */
                     if (f === -1) {
+                          /* read and store all information related one painting */
 
                         t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                         tt = dataset[i].properties.URL;
@@ -2263,13 +2311,14 @@
                         impMarker.on('click', function () {
                             $(".collapse").collapse('hide');
                         });
-
+                         /* add new data to the marker list(poplist)*/
                         popflag.push(lat);
                         poplist.push(impMarker);
                         urllist.push(hh);
 
                     } else {
-
+                        
+                        /* the same as above */
                         t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                         tt = dataset[i].properties.URL;
 
@@ -2278,7 +2327,7 @@
                     }
                 }
             }
-
+              /* add new object to the layer */
             for (var k = 0; k < poplist.length; k++) {
                 impLayer.addLayer(poplist[k]);
             }
@@ -2288,6 +2337,9 @@
             museumList.sort(sortRule);
 
             $('#recommendName').append('<h6>Impressionism</h6>');
+            
+            /* add museum recommemdation list content and append click function 
+            to locate and show popup of the particular museum*/
 
             for (var n = 0; n < 10; n++) {
 
@@ -2309,11 +2361,11 @@
         });
         recommendation.addTo(mymap);
     }
-    <!-- the content function called when the Realism panel shows-->
+   /* the content function called when the Realism panel shows*/
     function realClick() {
 
         sliderControl.onRemove(mymap);
-
+         /* clear all markers presenting on the map*/
         neoLayer.clearLayers();
         realLayer.clearLayers();
         romLayer.clearLayers();
@@ -2326,7 +2378,7 @@
         romImg.style.opacity = 0.5;
 
         var lat, lng;
-
+        /* read data from Data2.json, the main data source*/ 
         d3.json("Data2.json", function (dataset) {
 
             var poplist = [];
@@ -2343,7 +2395,7 @@
                     lat = dataset[i].geometry.coordinates[1];
                     lng = dataset[i].geometry.coordinates[0];
 
-                    <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                    /*  create recommendation collection list content, count the current satisfiable museum name and sort the museum list*/
                     if (m !== 0) {
 
                         if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
@@ -2361,16 +2413,17 @@
                         museumList.push(mymuseum);
                         m = 1;
                     }
-
+                    /* create marker object*/
                     realMarker = L.marker(new L.latLng(lat, lng), {icon: realIcon});
                     realMarker.on('click', clickZoom);
 
                     var f = popflag.indexOf(lat);
                     var t, tt;
 
-                    <!-- create corresponding marker under this click conditions and define the popup content-->
+                  /*  create corresponding marker under this click conditions and define the popup content*/
                     if (f === -1) {
 
+                          /* read and store all information related one painting */
                         t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                         tt = dataset[i].properties.URL;
                         var hh = "" + dataset[i].properties.TITLE + "<br/><img title='Scroll For More' class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/><br/><br/>";
@@ -2380,13 +2433,14 @@
                         realMarker.on('click', function () {
                             $(".collapse").collapse('hide');
                         });
-
+                         /* add new data to the marker list(poplist)*/
                         popflag.push(lat);
                         poplist.push(realMarker);
                         urllist.push(hh);
 
                     } else {
-
+                        
+                        /* the same as above */
                         t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                         tt = dataset[i].properties.URL;
 
@@ -2395,7 +2449,7 @@
                     }
                 }
             }
-
+             /* add new object to the layer */
             for (var k = 0; k < poplist.length; k++) {
                 realLayer.addLayer(poplist[k]);
             }
@@ -2403,6 +2457,9 @@
             realLayer.addTo(mymap);
             museumList.sort(sortRule);
             $('#recommendName').append('<h6>Realism</h6>');
+            
+            /* add museum recommemdation list content and append click function 
+            to locate and show popup of the particular museum */
             for (var n = 0; n < 10; n++) {
 
                 var z = museumList[n].latitude + ";" + museumList[n].lngtitude;
@@ -2423,11 +2480,12 @@
         });
         recommendation.addTo(mymap);
     }
-    <!-- the content function called when the Romanticism panel shows-->
+  /*  the content function called when the Romanticism panel shows*/
     function romClick() {
 
         sliderControl.onRemove(mymap);
-
+        
+        /* clear all markers presenting on the map*/
         neoLayer.clearLayers();
         realLayer.clearLayers();
         romLayer.clearLayers();
@@ -2440,7 +2498,8 @@
         romImg.style.opacity = 1.0;
 
         var lat, lng;
-
+        
+        /* read data from Data2.json, the main data source*/
         d3.json("Data2.json", function (dataset) {
 
             var poplist = [];
@@ -2453,11 +2512,12 @@
             for (var i = 0; i < dataset.length; i++) {
 
                 if (dataset[i].properties.Genre === "Romanticism") {
-
+                    
+                    /* get latitude and longitude*/
                     lat = dataset[i].geometry.coordinates[1];
                     lng = dataset[i].geometry.coordinates[0];
 
-                    <!-- create recommendation collection list content, count the current satisfiable museum name and sort the museum list-->
+                    /*  create recommendation collection list content, count the current satisfiable museum name and sort the museum list*/
                     if (m !== 0) {
 
                         if (dataset[i].properties.LOCATION !== dataset[i - 1].properties.LOCATION) {
@@ -2475,16 +2535,16 @@
                         museumList.push(mymuseum);
                         m = 1;
                     }
-
+                    /* create marker object*/
                     romMarker = L.marker(new L.latLng(lat, lng), {icon: romIcon});
                     romMarker.on('click', clickZoom);
 
                     var f = popflag.indexOf(lat);
                     var t, tt;
 
-                    <!-- create corresponding marker under this click conditions and define the popup content-->
+                   /*  create corresponding marker under this click conditions and define the popup content */
                     if (f === -1) {
-
+                        /* read and store all information related one painting */
                         t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                         tt = dataset[i].properties.URL;
                         var hh = "" + dataset[i].properties.TITLE + "<br/><img title='Scroll For More' class='myimg' src='" + tt + "' alt='" + t + "' width='280px' onclick='paintingPopup(this.src,this.alt)'/></br><br/>";
@@ -2494,13 +2554,14 @@
                         romMarker.on('click', function () {
                             $(".collapse").collapse('hide');
                         });
-
+                        /* add new data to the marker list(poplist)*/
                         popflag.push(lat);
                         poplist.push(romMarker);
                         urllist.push(hh);
 
                     } else {
-
+                        
+                        /* the same as above */
                         t = dataset[i].properties.AUTHOR + ";" + dataset[i].properties.BORNDIED + ";" + dataset[i].properties.time + ";" + dataset[i].properties.LOCATION + ";" + dataset[i].properties.Genre + ";" + dataset[i].properties.TECHNIQUE + ";" + dataset[i].properties.TITLE;
                         tt = dataset[i].properties.URL;
 
@@ -2510,6 +2571,7 @@
                 }
             }
 
+            /* add new object to the layer */
             for (var k = 0; k < poplist.length; k++) {
                 romLayer.addLayer(poplist[k]);
             }
@@ -2518,7 +2580,9 @@
 
             museumList.sort(sortRule);
             $('#recommendName').append('<h6>Romanticism</h6>');
-
+            
+            /* add museum recommemdation list content and append click function 
+            to locate and show popup of the particular museum*/
             for (var n = 0; n < 10; n++) {
 
                 var z = museumList[n].latitude + ";" + museumList[n].lngtitude;
